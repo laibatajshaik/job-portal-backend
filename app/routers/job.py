@@ -66,7 +66,7 @@ def get_job(job_id: int):
             "title": job.title,
             "description": job.description,
             "location": job.location,
-            "salary": f"${job.salary:,}" if isinstance(job.salary, int) else job.salary,
+            "salary": f"₹{job.salary:,}" if isinstance(job.salary, int) else (f"₹{job.salary}" if not str(job.salary).startswith('₹') else job.salary),
             "job_type": job.job_type,
             "company_name": "Demo Company"
         }
