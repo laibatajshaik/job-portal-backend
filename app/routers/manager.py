@@ -8,14 +8,39 @@ router = APIRouter(
 )
 
 
-class CompanyCreate:
-    pass
+from pydantic import BaseModel
+from typing import Optional
+
+class CompanySchema(BaseModel):
+    name: str
+    website: Optional[str] = ""
+    description: Optional[str] = ""
+
+current_company = {
+    "name": "Shnoor Technologies",
+    "website": "https://shnoor.com",
+    "description": "Leading software solutions and IT technology company."
+}
+
+
+@router.get("/company")
+def get_company():
+    return {
+        "company": current_company
+    }
 
 
 @router.post("/company")
-def register_company():
+def register_company(company: CompanySchema):
+    global current_company
+    current_company = {
+        "name": company.name,
+        "website": company.website or "",
+        "description": company.description or ""
+    }
     return {
-        "message": "Company Registered Successfully"
+        "message": "Company Registered Successfully",
+        "company": current_company
     }
 
 
