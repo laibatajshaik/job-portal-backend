@@ -7,32 +7,32 @@ jobs = [
     JobCreate(
         title="Frontend Developer",
         description="We are looking for a skilled React.js frontend developer to build responsive user interfaces.",
-        location="Remote",
-        salary=90000,
+        location="Bengaluru, KA",
+        salary=900000,
         job_type="Full Time",
         skills="React, JavaScript, TailwindCSS, HTML/CSS"
     ),
     JobCreate(
         title="Full Stack Python Developer",
         description="Join our engineering team to build scalable FastAPI web APIs and modern web applications.",
-        location="New York, NY",
-        salary=110000,
+        location="Mumbai, MH",
+        salary=1150000,
         job_type="Full Time",
         skills="Python, FastAPI, React, PostgreSQL"
     ),
     JobCreate(
         title="UI/UX Designer",
         description="Design intuitive user journeys, wireframes, and high-fidelity mockups for our web platform.",
-        location="Remote",
-        salary=85000,
+        location="Hyderabad, TS",
+        salary=850000,
         job_type="Contract",
         skills="Figma, UI Design, Prototyping"
     ),
     JobCreate(
         title="Data Analyst",
         description="Analyze key product metrics, generate actionable business reports, and manage SQL data models.",
-        location="Austin, TX",
-        salary=80000,
+        location="Pune, MH",
+        salary=800000,
         job_type="Full Time",
         skills="SQL, Python, Excel, Tableau"
     )
