@@ -11,16 +11,28 @@ from app.routers.application import router as application_router
 
 app = FastAPI(title="Job Portal Backend")
 
-# Allow origins from environment variable or default to wildcard/regex for Render deployments
-allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "*")
-origins = [origin.strip() for origin in allowed_origins_env.split(",") if origin.strip()]
-if "https://job-portal-frontend-rys7.onrender.com" not in origins:
-    origins.append("https://job-portal-frontend-rys7.onrender.com")
+# Define allowed origins cleanly without wildcard '*' to avoid Starlette CORS assertion errors
+origins = [
+    "https://job-portal-frontend-rys7.onrender.com",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:8000"
+]
+
+env_origins = os.getenv("ALLOWED_ORIGINS")
+if env_origins:
+    for item in env_origins.split(","):
+        item_clean = item.strip()
+        if item_clean and item_clean != "*" and item_clean not in origins:
+            origins.append(item_clean)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_origin_regex=r"https://.*\.onrender\.com|http://localhost:\d+|http://127\.0\.0\.1:\d+",
+    allow_origin_regex=r"https://.*\.onrender\.com",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
