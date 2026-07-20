@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,12 +11,16 @@ from app.routers.application import router as application_router
 
 app = FastAPI(title="Job Portal Backend")
 
+# Allow origins from environment variable or default to wildcard/regex for Render deployments
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "*")
+origins = [origin.strip() for origin in allowed_origins_env.split(",") if origin.strip()]
+if "https://job-portal-frontend-rys7.onrender.com" not in origins:
+    origins.append("https://job-portal-frontend-rys7.onrender.com")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173",
-                   "http://localhost:5175",
-                   "http://localhost:5174"],
+    allow_origins=origins,
+    allow_origin_regex=r"https://.*\.onrender\.com|http://localhost:\d+|http://127\.0\.0\.1:\d+",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -32,4 +37,4 @@ app.include_router(application_router)
 
 @app.get("/")
 def home():
-    return {"message": "Job Portal Backend Running"}
+    return {"message": "Job Portal Backend Running"}
