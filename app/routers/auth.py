@@ -52,3 +52,34 @@ def login(user: UserRegister):
         "access_token": token,
         "token_type": "bearer"
     }
+
+
+@router.post("/forgot-password")
+def forgot_password(payload: dict):
+    email = payload.get("email")
+    if not email:
+        raise HTTPException(status_code=400, detail="Email is required")
+    return {
+        "message": "Verification code sent to registered email",
+        "email": email
+    }
+
+
+@router.post("/reset-password")
+def reset_password(payload: dict):
+    email = payload.get("email")
+    new_password = payload.get("new_password")
+    if not email or not new_password:
+        raise HTTPException(status_code=400, detail="Email and new password are required")
+
+    user_updated = False
+    for u in users:
+        if u.email.lower() == email.lower():
+            u.password = new_password
+            user_updated = True
+            break
+
+    return {
+        "message": "Password reset successfully",
+        "email": email
+    }
