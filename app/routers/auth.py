@@ -147,6 +147,7 @@ def google_login(payload: dict):
             print("Local JWT decoding failed:", local_err)
             raise HTTPException(status_code=400, detail="Google token verification failed (both online and local fallback)")
 
+    print("Decoded Google Token Data:", data)
     if not data:
         raise HTTPException(status_code=400, detail="Unable to extract Google profile details from token")
 
