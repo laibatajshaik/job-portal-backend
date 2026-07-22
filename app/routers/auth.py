@@ -8,7 +8,10 @@ router = APIRouter(
 )
 
 
+import random
+
 users = []
+active_otps = {}
 
 
 @router.post("/register")
@@ -59,18 +62,32 @@ def forgot_password(payload: dict):
     email = payload.get("email")
     if not email:
         raise HTTPException(status_code=400, detail="Email is required")
+    
+    # Generate real dynamic 6-digit verification code
+    otp = str(random.randint(100000, 999999))
+    active_otps[email.lower()] = otp
+    print(f"\n>>> [OTP GENERATED] Email: {email} | Code: {otp}\n")
+    
     return {
-        "message": "Verification code sent to registered email",
-        "email": email
+        "message": "Verification code generated successfully",
+        "email": email,
+        "code": otp
     }
 
 
 @router.post("/reset-password")
 def reset_password(payload: dict):
     email = payload.get("email")
+    code = payload.get("code")
     new_password = payload.get("new_password")
-    if not email or not new_password:
-        raise HTTPException(status_code=400, detail="Email and new password are required")
+    
+    if not email or not code or not new_password:
+        raise HTTPException(status_code=400, detail="Email, verification code, and new password are required")
+
+    # Verify real generated OTP code
+    expected_code = active_otps.get(email.lower())
+    if not expected_code or expected_code != str(code).strip():
+        raise HTTPException(status_code=400, detail="Invalid or expired verification code")
 
     user_updated = False
     for u in users:
@@ -78,6 +95,9 @@ def reset_password(payload: dict):
             u.password = new_password
             user_updated = True
             break
+
+    # Clean up OTP after successful reset
+    active_otps.pop(email.lower(), None)
 
     return {
         "message": "Password reset successfully",
