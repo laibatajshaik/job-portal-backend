@@ -166,6 +166,7 @@ def google_login(payload: dict):
         aud_valid = allowed_client_id.strip() in azp.strip()
 
     if not aud_valid:
+        print(f">>> [CLIENT ID MISMATCH] Allowed: {allowed_client_id} | Token aud: {aud} | Token azp: {azp}")
         raise HTTPException(status_code=400, detail=f"Audience Client ID mismatch. aud: {aud}, azp: {azp}")
 
     email = data.get("email")
