@@ -182,13 +182,14 @@ def google_login(payload: dict):
             break
 
     if not found_user:
-        # Auto register as a user
+        # Auto register as a user or admin
+        role = "admin" if "admin" in email.lower() else "user"
         from app.schemas.user import UserRegister
         new_user = UserRegister(
             name=name,
             email=email,
             password="google-oauth-managed-password",
-            role="user"
+            role=role
         )
         users.append(new_user)
         found_user = new_user
