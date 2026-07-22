@@ -140,7 +140,7 @@ def google_login(payload: dict):
             parts = token.split(".")
             if len(parts) == 3:
                 payload_b64 = parts[1]
-                padded = payload_b64 + "=" * (4 - len(payload_b64) % 4)
+                padded = payload_b64 + "=" * ((4 - len(payload_b64) % 4) % 4)
                 decoded_bytes = base64.urlsafe_b64decode(padded)
                 data = json.loads(decoded_bytes.decode('utf-8'))
         except Exception as local_err:
@@ -150,10 +150,22 @@ def google_login(payload: dict):
     if not data:
         raise HTTPException(status_code=400, detail="Unable to extract Google profile details from token")
 
-    # Verify audience client ID
+    # Verify audience client ID (support aud as string/list and azp fallback)
+    allowed_client_id = "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl.apps.googleusercontent.com"
     aud = data.get("aud")
-    if aud != "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl.apps.googleusercontent.com":
-        raise HTTPException(status_code=400, detail="Audience client ID mismatch")
+    azp = data.get("azp")
+    aud_valid = False
+
+    if isinstance(aud, list):
+        aud_valid = allowed_client_id in aud
+    elif isinstance(aud, str):
+        aud_valid = allowed_client_id.strip() in aud.strip()
+
+    if not aud_valid and azp and isinstance(azp, str):
+        aud_valid = allowed_client_id.strip() in azp.strip()
+
+    if not aud_valid:
+        raise HTTPException(status_code=400, detail=f"Audience Client ID mismatch. aud: {aud}, azp: {azp}")
 
     email = data.get("email")
     name = data.get("name", "Google User")
