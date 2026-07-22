@@ -57,6 +57,9 @@ def login(user: UserRegister):
     }
 
 
+from app.auth.email_sender import send_otp_email
+
+
 @router.post("/forgot-password")
 def forgot_password(payload: dict):
     email = payload.get("email")
@@ -68,10 +71,12 @@ def forgot_password(payload: dict):
     active_otps[email.lower()] = otp
     print(f"\n>>> [OTP GENERATED] Email: {email} | Code: {otp}\n")
     
+    # Send actual email to registered user/manager
+    email_sent = send_otp_email(email, otp)
+    
     return {
-        "message": "Verification code generated successfully",
-        "email": email,
-        "code": otp
+        "message": "Verification code sent to registered email address" if email_sent else "Generated verification code internally",
+        "email": email
     }
 
 
