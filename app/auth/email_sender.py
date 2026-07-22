@@ -5,8 +5,8 @@ import os
 
 def send_otp_email(to_email: str, otp: str):
     # Live Gmail noreply setup for Job Portal demo/staging emails
-    smtp_user = os.getenv("SMTP_USER", "jobportal.noreply.otp@gmail.com")
-    smtp_password = os.getenv("SMTP_PASSWORD", "vxtg nggj isqk kofj")
+    smtp_user = os.getenv("SMTP_USER", "laibataj1306@gmail.com")
+    smtp_password = os.getenv("SMTP_PASSWORD", "acab wfla vmlk pfnl")
     
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
