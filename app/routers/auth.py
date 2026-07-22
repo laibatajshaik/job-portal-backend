@@ -108,3 +108,66 @@ def reset_password(payload: dict):
         "message": "Password reset successfully",
         "email": email
     }
+
+
+import urllib.request
+import json
+
+@router.post("/google-login")
+def google_login(payload: dict):
+    token = payload.get("token")
+    if not token:
+        raise HTTPException(status_code=400, detail="Google authentication token is required")
+
+    try:
+        # Request Google endpoint to verify ID Token integrity
+        url = f"https://oauth2.googleapis.com/tokeninfo?id_token={token}"
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req) as response:
+            data = json.loads(response.read().decode('utf-8'))
+        
+        # Verify audience client ID
+        aud = data.get("aud")
+        if aud != "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl.apps.googleusercontent.com":
+            raise HTTPException(status_code=400, detail="Audience client ID mismatch")
+
+        email = data.get("email")
+        name = data.get("name", "Google User")
+
+        # Auto-sign up or login user
+        found_user = None
+        for u in users:
+            if u.email.lower() == email.lower():
+                found_user = u
+                break
+
+        if not found_user:
+            # Auto register as a user
+            from app.schemas.user import UserRegister
+            new_user = UserRegister(
+                name=name,
+                email=email,
+                password="google-oauth-managed-password",
+                role="user"
+            )
+            users.append(new_user)
+            found_user = new_user
+
+        # Create live JWT token
+        access_token = create_access_token({
+            "sub": found_user.email
+        })
+
+        return {
+            "message": "Google Authentication Successful",
+            "access_token": access_token,
+            "token_type": "bearer",
+            "user": {
+                "name": found_user.name,
+                "email": found_user.email,
+                "role": found_user.role
+            }
+        }
+    except Exception as e:
+        print("Google token verification failed:", e)
+        raise HTTPException(status_code=400, detail="Google authentication failed server verification")
