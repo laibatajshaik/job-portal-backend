@@ -1,15 +1,14 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from app.schemas.job import JobCreate
-from app.routers.job import jobs
+from app.db import load_jobs, save_jobs, load_applications, save_applications
+from pydantic import BaseModel
+from typing import Optional
 
 router = APIRouter(
     prefix="/manager",
     tags=["Manager"]
 )
 
-
-from pydantic import BaseModel
-from typing import Optional
 
 class CompanySchema(BaseModel):
     name: str
@@ -46,24 +45,31 @@ def register_company(company: CompanySchema):
 
 @router.post("/jobs")
 def create_job(job: JobCreate):
-    jobs.append(job)
+    db_jobs = load_jobs()
+    new_job = {
+        "id": len(db_jobs),
+        "title": job.title,
+        "description": job.description,
+        "location": job.location,
+        "salary": job.salary,
+        "job_type": job.job_type,
+        "skills": job.skills
+    }
+    db_jobs.append(new_job)
+    save_jobs(db_jobs)
     return {
         "message": "Job Posted Successfully",
-        "job": job
+        "job": new_job
     }
 
 
 @router.get("/applicants")
-def view_applicants():
+def view_applicants(job_id: Optional[int] = None):
+    db_apps = load_applications()
+    if job_id is not None:
+        db_apps = [app for app in db_apps if app.get("job_id") == job_id]
     return {
-        "applicants": [
-            {
-                "name": "Sreelatha",
-                "email": "sree@gmail.com",
-                "ats_score": 85,
-                "status": "Accepted"
-            }
-        ]
+        "applicants": db_apps
     }
 
 
@@ -83,13 +89,33 @@ def delete_job(job_id: int):
 
 @router.put("/applicants/{candidate_id}/shortlist")
 def shortlist_candidate(candidate_id: int):
-    return {
-        "message": f"Candidate {candidate_id} Shortlisted Successfully"
-    }
+    db_apps = load_applications()
+    updated = False
+    for app in db_apps:
+        if app.get("id") == candidate_id:
+            app["status"] = "Shortlisted"
+            updated = True
+            break
+    if updated:
+        save_applications(db_apps)
+        return {
+            "message": f"Candidate {candidate_id} Shortlisted Successfully"
+        }
+    raise HTTPException(status_code=404, detail="Application not found")
 
 
 @router.put("/applicants/{candidate_id}/reject")
 def reject_candidate(candidate_id: int):
-    return {
-        "message": f"Candidate {candidate_id} Rejected Successfully"
-    }
+    db_apps = load_applications()
+    updated = False
+    for app in db_apps:
+        if app.get("id") == candidate_id:
+            app["status"] = "Rejected"
+            updated = True
+            break
+    if updated:
+        save_applications(db_apps)
+        return {
+            "message": f"Candidate {candidate_id} Rejected Successfully"
+        }
+    raise HTTPException(status_code=404, detail="Application not found")

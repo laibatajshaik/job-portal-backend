@@ -8,16 +8,25 @@ router = APIRouter(
 )
 
 
-import random
+from app.db import load_users, save_users
 
-users = []
 active_otps = {}
 
 
 @router.post("/register")
 def register(user: UserRegister):
+    db_users = load_users()
+    for u in db_users:
+        if u["email"].lower() == user.email.lower():
+            raise HTTPException(status_code=400, detail="Email already registered")
 
-    users.append(user)
+    db_users.append({
+        "name": user.name,
+        "email": user.email,
+        "password": user.password,
+        "role": user.role
+    })
+    save_users(db_users)
 
     token = create_access_token({
         "sub": user.email
@@ -32,11 +41,11 @@ def register(user: UserRegister):
 
 @router.post("/login")
 def login(user: UserRegister):
-
+    db_users = load_users()
     found_user = None
 
-    for u in users:
-        if u.email == user.email and u.password == user.password:
+    for u in db_users:
+        if u["email"].lower() == user.email.lower() and u["password"] == user.password:
             found_user = u
             break
 
@@ -47,13 +56,18 @@ def login(user: UserRegister):
         )
 
     token = create_access_token({
-        "sub": user.email
+        "sub": found_user["email"]
     })
 
     return {
         "message": "Login Successful",
         "access_token": token,
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "user": {
+            "name": found_user["name"],
+            "email": found_user["email"],
+            "role": found_user["role"]
+        }
     }
 
 
@@ -94,12 +108,16 @@ def reset_password(payload: dict):
     if not expected_code or expected_code != str(code).strip():
         raise HTTPException(status_code=400, detail="Invalid or expired verification code")
 
+    db_users = load_users()
     user_updated = False
-    for u in users:
-        if u.email.lower() == email.lower():
-            u.password = new_password
+    for u in db_users:
+        if u["email"].lower() == email.lower():
+            u["password"] = new_password
             user_updated = True
             break
+
+    if user_updated:
+        save_users(db_users)
 
     # Clean up OTP after successful reset
     active_otps.pop(email.lower(), None)
@@ -175,28 +193,29 @@ def google_login(payload: dict):
         raise HTTPException(status_code=400, detail="Email field is missing in Google token payload")
 
     # Auto-sign up or login user
+    db_users = load_users()
     found_user = None
-    for u in users:
-        if u.email.lower() == email.lower():
+    for u in db_users:
+        if u["email"].lower() == email.lower():
             found_user = u
             break
 
     if not found_user:
         # Auto register as a user or admin
         role = "admin" if "admin" in email.lower() else "user"
-        from app.schemas.user import UserRegister
-        new_user = UserRegister(
-            name=name,
-            email=email,
-            password="google-oauth-managed-password",
-            role=role
-        )
-        users.append(new_user)
+        new_user = {
+            "name": name,
+            "email": email,
+            "password": "google-oauth-managed-password",
+            "role": role
+        }
+        db_users.append(new_user)
+        save_users(db_users)
         found_user = new_user
 
     # Create live JWT token
     access_token = create_access_token({
-        "sub": found_user.email
+        "sub": found_user["email"]
     })
 
     return {
@@ -204,8 +223,8 @@ def google_login(payload: dict):
         "access_token": access_token,
         "token_type": "bearer",
         "user": {
-            "name": found_user.name,
-            "email": found_user.email,
-            "role": found_user.role
+            "name": found_user["name"],
+            "email": found_user["email"],
+            "role": found_user["role"]
         }
     }

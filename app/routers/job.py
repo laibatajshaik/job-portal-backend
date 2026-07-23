@@ -1,73 +1,72 @@
 from fastapi import APIRouter, HTTPException
 from app.schemas.job import JobCreate
+from app.db import load_jobs, save_jobs
 
 router = APIRouter(prefix="/jobs", tags=["Jobs"])
-
-jobs = [
-    JobCreate(
-        title="Frontend Developer",
-        description="We are looking for a skilled React.js frontend developer to build responsive user interfaces.",
-        location="Bengaluru, KA",
-        salary=900000,
-        job_type="Full Time",
-        skills="React, JavaScript, TailwindCSS, HTML/CSS"
-    ),
-    JobCreate(
-        title="Full Stack Python Developer",
-        description="Join our engineering team to build scalable FastAPI web APIs and modern web applications.",
-        location="Mumbai, MH",
-        salary=1150000,
-        job_type="Full Time",
-        skills="Python, FastAPI, React, PostgreSQL"
-    ),
-    JobCreate(
-        title="UI/UX Designer",
-        description="Design intuitive user journeys, wireframes, and high-fidelity mockups for our web platform.",
-        location="Hyderabad, TS",
-        salary=850000,
-        job_type="Contract",
-        skills="Figma, UI Design, Prototyping"
-    ),
-    JobCreate(
-        title="Data Analyst",
-        description="Analyze key product metrics, generate actionable business reports, and manage SQL data models.",
-        location="Pune, MH",
-        salary=800000,
-        job_type="Full Time",
-        skills="SQL, Python, Excel, Tableau"
-    )
-]
 
 
 @router.post("/")
 def create_job(job: JobCreate):
-    jobs.append(job)
+    db_jobs = load_jobs()
+    new_job = {
+        "id": len(db_jobs),
+        "title": job.title,
+        "description": job.description,
+        "location": job.location,
+        "salary": job.salary,
+        "job_type": job.job_type,
+        "skills": job.skills
+    }
+    db_jobs.append(new_job)
+    save_jobs(db_jobs)
     return {
         "message": "Job Created Successfully",
-        "job": job
+        "job": new_job
     }
 
 
 @router.get("/")
 def get_jobs():
-    return jobs
+    db_jobs = load_jobs()
+    for idx, job in enumerate(db_jobs):
+        if "id" not in job:
+            job["id"] = idx
+    return db_jobs
 
 
 @router.get("/{job_id}")
 def get_job(job_id: int):
-    if job_id < 0 or job_id >= len(jobs):
+    db_jobs = load_jobs()
+    found_job = None
+    for job in db_jobs:
+        if job.get("id") == job_id:
+            found_job = job
+            break
+
+    if found_job is None:
+        if 0 <= job_id < len(db_jobs):
+            found_job = db_jobs[job_id]
+            found_job["id"] = job_id
+
+    if found_job is None:
         raise HTTPException(status_code=404, detail="Job not found")
 
-    job = jobs[job_id]
+    salary_val = found_job.get("salary")
+    salary_str = ""
+    if isinstance(salary_val, int):
+        salary_str = f"₹{salary_val:,}"
+    else:
+        str_val = str(salary_val or '900000')
+        salary_str = f"₹{str_val}" if not str_val.startswith('₹') else str_val
 
     return {
         "job": {
-            "id": job_id,
-            "title": job.title,
-            "description": job.description,
-            "location": job.location,
-            "salary": f"₹{job.salary:,}" if isinstance(job.salary, int) else (f"₹{job.salary}" if not str(job.salary).startswith('₹') else job.salary),
-            "job_type": job.job_type,
-            "company_name": "Demo Company"
+            "id": found_job.get("id"),
+            "title": found_job.get("title"),
+            "description": found_job.get("description"),
+            "location": found_job.get("location"),
+            "salary": salary_str,
+            "job_type": found_job.get("job_type", "Full Time"),
+            "company_name": "Shnoor Technologies"
         }
     }
