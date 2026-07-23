@@ -71,6 +71,7 @@ def login(user: UserRegister):
     }
 
 
+import random
 from app.auth.email_sender import send_otp_email
 
 

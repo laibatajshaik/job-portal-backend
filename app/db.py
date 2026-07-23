@@ -47,6 +47,20 @@ def load_users() -> List[Dict[str, Any]]:
                     "email": "laiba.candidate@gmail.com",
                     "password": "laiba",
                     "role": "user"
+                },
+                {
+                    "id": 3,
+                    "name": "Demo User",
+                    "email": "user@gmail.com",
+                    "password": "user123",
+                    "role": "user"
+                },
+                {
+                    "id": 4,
+                    "name": "Demo Manager",
+                    "email": "manager@gmail.com",
+                    "password": "manager123",
+                    "role": "manager"
                 }
             ]
             _save_file(USERS_FILE, users)
