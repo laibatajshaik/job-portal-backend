@@ -202,8 +202,10 @@ def google_login(payload: dict):
             break
 
     if not found_user:
-        # Auto register as a user or admin
-        role = "admin" if "admin" in email.lower() else "user"
+        # Auto register as the requested role, admin, or fallback to user
+        role = payload.get("role", "user")
+        if "admin" in email.lower():
+            role = "admin"
         new_user = {
             "name": name,
             "email": email,
