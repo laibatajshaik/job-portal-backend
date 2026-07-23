@@ -45,6 +45,7 @@ def load_jobs() -> List[Dict[str, Any]]:
         if not jobs:
             jobs = [
                 {
+                    "id": 0,
                     "title": "Frontend Developer",
                     "description": "We are looking for a skilled React.js frontend developer to build responsive user interfaces.",
                     "location": "Bengaluru, KA",
@@ -53,6 +54,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS"
                 },
                 {
+                    "id": 1,
                     "title": "Full Stack Python Developer",
                     "description": "Join our engineering team to build scalable FastAPI web APIs and modern web applications.",
                     "location": "Mumbai, MH",
@@ -61,6 +63,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "skills": "Python, FastAPI, React, PostgreSQL"
                 },
                 {
+                    "id": 2,
                     "title": "UI/UX Designer",
                     "description": "Design intuitive user journeys, wireframes, and high-fidelity mockups for our web platform.",
                     "location": "Hyderabad, TS",
@@ -69,6 +72,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "skills": "Figma, UI Design, Prototyping"
                 },
                 {
+                    "id": 3,
                     "title": "Data Analyst",
                     "description": "Analyze key product metrics, generate actionable business reports, and manage SQL data models.",
                     "location": "Pune, MH",
@@ -78,6 +82,16 @@ def load_jobs() -> List[Dict[str, Any]]:
                 }
             ]
             _save_file(JOBS_FILE, jobs)
+        
+        # Enforce every job has a valid int ID
+        modified = False
+        for idx, job in enumerate(jobs):
+            if "id" not in job:
+                job["id"] = idx
+                modified = True
+        if modified:
+            _save_file(JOBS_FILE, jobs)
+            
         return jobs
 
 def save_jobs(jobs: List[Dict[str, Any]]):

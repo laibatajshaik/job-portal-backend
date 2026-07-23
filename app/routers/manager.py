@@ -66,6 +66,16 @@ def create_job(job: JobCreate):
 @router.get("/applicants")
 def view_applicants(job_id: Optional[int] = None):
     db_apps = load_applications()
+    
+    # Auto-assign IDs if missing in stored records
+    modified = False
+    for idx, app in enumerate(db_apps):
+        if "id" not in app:
+            app["id"] = idx + 1
+            modified = True
+    if modified:
+        save_applications(db_apps)
+        
     if job_id is not None:
         db_apps = [app for app in db_apps if app.get("job_id") == job_id]
     return {
@@ -91,11 +101,15 @@ def delete_job(job_id: int):
 def shortlist_candidate(candidate_id: int):
     db_apps = load_applications()
     updated = False
-    for app in db_apps:
-        if app.get("id") == candidate_id:
+    for idx, app in enumerate(db_apps):
+        # Match by explicit ID or fallback index (1-based index matching candidate_id)
+        if app.get("id") == candidate_id or (app.get("id") is None and idx + 1 == candidate_id):
             app["status"] = "Shortlisted"
+            if "id" not in app:
+                app["id"] = idx + 1
             updated = True
             break
+            
     if updated:
         save_applications(db_apps)
         return {
@@ -108,11 +122,15 @@ def shortlist_candidate(candidate_id: int):
 def reject_candidate(candidate_id: int):
     db_apps = load_applications()
     updated = False
-    for app in db_apps:
-        if app.get("id") == candidate_id:
+    for idx, app in enumerate(db_apps):
+        # Match by explicit ID or fallback index (1-based index matching candidate_id)
+        if app.get("id") == candidate_id or (app.get("id") is None and idx + 1 == candidate_id):
             app["status"] = "Rejected"
+            if "id" not in app:
+                app["id"] = idx + 1
             updated = True
             break
+            
     if updated:
         save_applications(db_apps)
         return {
