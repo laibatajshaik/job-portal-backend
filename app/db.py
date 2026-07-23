@@ -31,7 +31,26 @@ def _save_file(filepath: str, data: Any):
 # Users
 def load_users() -> List[Dict[str, Any]]:
     with db_lock:
-        return _load_file(USERS_FILE, [])
+        users = _load_file(USERS_FILE, [])
+        if not users:
+            users = [
+                {
+                    "id": 1,
+                    "name": "Laiba Taj",
+                    "email": "laibataj1306@gmail.com",
+                    "password": "acab wfla vmlk pfnl",
+                    "role": "manager"
+                },
+                {
+                    "id": 2,
+                    "name": "Laiba Candidate",
+                    "email": "laiba.candidate@gmail.com",
+                    "password": "laiba",
+                    "role": "user"
+                }
+            ]
+            _save_file(USERS_FILE, users)
+        return users
 
 def save_users(users: List[Dict[str, Any]]):
     with db_lock:
