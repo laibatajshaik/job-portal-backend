@@ -69,43 +69,92 @@ def login(user: UserRegister):
 
 import random
 from app.auth.email_sender import send_otp_email
-@router.get("/test-resend")
-def test_resend(to: str):
-    import urllib.request
-    import json
+@router.get("/test-email-status")
+def test_email_status(to: str):
     import os
+    import json
+    import urllib.request
+    import traceback
+    
+    res = {}
+    
     resend_key = os.getenv("RESEND_API_KEY")
-    if not resend_key:
-        return {"success": False, "error": "RESEND_API_KEY is not configured in Render environment variables"}
-    try:
-        url = 'https://api.resend.com/emails'
-        headers = {
-            'Authorization': f'Bearer {resend_key}',
-            'Content-Type': 'application/json'
-        }
-        payload = {
-            'from': 'onboarding@resend.dev',
-            'to': to,
-            'subject': 'Test Resend from Render',
-            'html': '<p>This is a test email from Render!</p>'
-        }
-        req = urllib.request.Request(url, data=json.dumps(payload).encode('utf-8'), headers=headers, method='POST')
-        with urllib.request.urlopen(req) as res:
-            return {"success": True, "response": res.read().decode('utf-8')}
-    except Exception as e:
-        import traceback
-        error_body = ""
-        if hasattr(e, "read"):
-            try:
-                error_body = e.read().decode('utf-8')
-            except Exception:
-                pass
-        return {
-            "success": False,
-            "error": str(e),
-            "error_body": error_body,
-            "traceback": traceback.format_exc()
-        }
+    res["resend_key_configured"] = bool(resend_key)
+    if resend_key:
+        try:
+            url = 'https://api.resend.com/emails'
+            headers = {
+                'Authorization': f'Bearer {resend_key}',
+                'Content-Type': 'application/json'
+            }
+            payload = {
+                'from': 'onboarding@resend.dev',
+                'to': to,
+                'subject': 'Test Resend',
+                'html': '<p>Test</p>'
+            }
+            req = urllib.request.Request(url, data=json.dumps(payload).encode('utf-8'), headers=headers, method='POST')
+            with urllib.request.urlopen(req) as r:
+                res["resend_success"] = True
+                res["resend_response"] = r.read().decode('utf-8')
+        except Exception as e:
+            err_body = e.read().decode('utf-8') if hasattr(e, "read") else ""
+            res["resend_success"] = False
+            res["resend_error"] = str(e)
+            res["resend_error_body"] = err_body
+            
+    brevo_key = os.getenv("BREVO_API_KEY")
+    res["brevo_key_configured"] = bool(brevo_key)
+    if brevo_key:
+        try:
+            url = 'https://api.brevo.com/v3/smtp/email'
+            headers = {
+                'accept': 'application/json',
+                'api-key': brevo_key,
+                'content-type': 'application/json'
+            }
+            payload = {
+                'sender': {'name': 'Job Portal', 'email': 'laibataj1301@gmail.com'},
+                'to': [{'email': to}],
+                'subject': 'Test Brevo API',
+                'textContent': 'Test'
+            }
+            req = urllib.request.Request(url, data=json.dumps(payload).encode('utf-8'), headers=headers, method='POST')
+            with urllib.request.urlopen(req) as r:
+                res["brevo_success"] = True
+                res["brevo_response"] = r.read().decode('utf-8')
+        except Exception as e:
+            err_body = e.read().decode('utf-8') if hasattr(e, "read") else ""
+            res["brevo_success"] = False
+            res["brevo_error"] = str(e)
+            res["brevo_error_body"] = err_body
+            
+    import smtplib
+    from email.mime.text import MIMEText
+    smtp_user = os.getenv("SMTP_USER")
+    smtp_password = os.getenv("SMTP_PASSWORD")
+    smtp_server = os.getenv("SMTP_SERVER")
+    smtp_port = int(os.getenv("SMTP_PORT", "2525"))
+    if smtp_user and smtp_password and smtp_server:
+        try:
+            msg = MIMEText("Test SMTP")
+            msg['Subject'] = 'Test SMTP'
+            msg['From'] = smtp_user
+            msg['To'] = to
+            server = smtplib.SMTP(smtp_server, smtp_port, timeout=5)
+            server.starttls()
+            server.login(smtp_user, smtp_password)
+            server.sendmail(smtp_user, [to], msg.as_string())
+            server.quit()
+            res["smtp_success"] = True
+        except Exception as e:
+            res["smtp_success"] = False
+            res["smtp_error"] = str(e)
+    else:
+        res["smtp_success"] = False
+        res["smtp_error"] = "SMTP credentials not fully configured in environment"
+        
+    return res
 
 @router.post("/forgot-password")
 def forgot_password(payload: dict):
