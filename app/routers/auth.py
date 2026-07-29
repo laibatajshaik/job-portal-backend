@@ -83,8 +83,7 @@ def forgot_password(payload: dict):
     
     return {
         "message": "Verification code sent to registered email address" if email_sent else "Generated verification code internally",
-        "email": email,
-        "dev_code": otp
+        "email": email
     }
 
 @router.post("/reset-password")
