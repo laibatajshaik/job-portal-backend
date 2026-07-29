@@ -6,7 +6,7 @@ import os
 def send_otp_email(to_email: str, otp: str):
     
     smtp_user = os.getenv("SMTP_USER", "laibataj1306@gmail.com")
-    smtp_password = os.getenv("SMTP_PASSWORD", "acab wfla vmlk pfnl")
+    smtp_password = os.getenv("SMTP_PASSWORD", "ypvpqxtbfcbvxwqq")
     
     smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
     smtp_port = int(os.getenv("SMTP_PORT", "587"))
