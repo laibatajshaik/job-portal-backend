@@ -37,12 +37,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from fastapi.staticfiles import StaticFiles
+
 app.include_router(auth_router)
 app.include_router(job_router)
 app.include_router(manager_router)
 app.include_router(user_router)
 app.include_router(admin_router)
 app.include_router(application_router)
+
+os.makedirs("uploads", exist_ok=True)
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 @app.get("/")
 def home():

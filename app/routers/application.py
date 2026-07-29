@@ -44,11 +44,15 @@ def apply_job(application: ApplicationCreate, authorization: str = Header(None))
     db_jobs = load_jobs()
     job_title = f"Job #{application.job_id}"
     company_name = "Demo Company"
-    for job in db_jobs:
-        if job.get("id") == application.job_id:
-            job_title = job.get("title")
-            company_name = job.get("company_name", "Demo Company")
-            break
+    if application.job_id == 0:
+        job_title = "Uploaded Resume"
+        company_name = "Personal Archive"
+    else:
+        for job in db_jobs:
+            if job.get("id") == application.job_id:
+                job_title = job.get("title")
+                company_name = job.get("company_name", "Demo Company")
+                break
 
     ats_score = random.randint(55, 98)
     status = "Shortlisted" if ats_score >= 80 else "Pending"
@@ -117,3 +121,25 @@ def update_application_status(app_id: int, update_data: ApplicationUpdateStatus)
         return {"message": "Application status updated successfully"}
         
     raise HTTPException(status_code=404, detail="Application not found")
+
+import os
+import shutil
+import uuid
+from fastapi import UploadFile, File
+
+@router.post("/upload-cv")
+def upload_cv(file: UploadFile = File(...)):
+    os.makedirs("uploads", exist_ok=True)
+    file_ext = os.path.splitext(file.filename)[1]
+    unique_filename = f"{uuid.uuid4()}{file_ext}"
+    file_path = os.path.join("uploads", unique_filename)
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    file_url = f"/uploads/{unique_filename}"
+    return {
+        "message": "File uploaded successfully",
+        "file_url": file_url,
+        "filename": file.filename
+    }
