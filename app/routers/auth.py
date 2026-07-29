@@ -69,6 +69,44 @@ def login(user: UserRegister):
 
 import random
 from app.auth.email_sender import send_otp_email
+@router.get("/test-resend")
+def test_resend(to: str):
+    import urllib.request
+    import json
+    import os
+    resend_key = os.getenv("RESEND_API_KEY")
+    if not resend_key:
+        return {"success": False, "error": "RESEND_API_KEY is not configured in Render environment variables"}
+    try:
+        url = 'https://api.resend.com/emails'
+        headers = {
+            'Authorization': f'Bearer {resend_key}',
+            'Content-Type': 'application/json'
+        }
+        payload = {
+            'from': 'onboarding@resend.dev',
+            'to': to,
+            'subject': 'Test Resend from Render',
+            'html': '<p>This is a test email from Render!</p>'
+        }
+        req = urllib.request.Request(url, data=json.dumps(payload).encode('utf-8'), headers=headers, method='POST')
+        with urllib.request.urlopen(req) as res:
+            return {"success": True, "response": res.read().decode('utf-8')}
+    except Exception as e:
+        import traceback
+        error_body = ""
+        if hasattr(e, "read"):
+            try:
+                error_body = e.read().decode('utf-8')
+            except Exception:
+                pass
+        return {
+            "success": False,
+            "error": str(e),
+            "error_body": error_body,
+            "traceback": traceback.format_exc()
+        }
+
 @router.post("/forgot-password")
 def forgot_password(payload: dict):
     email = payload.get("email")
