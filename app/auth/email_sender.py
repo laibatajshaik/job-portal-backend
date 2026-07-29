@@ -6,20 +6,21 @@ import json
 import urllib.request
 
 def send_otp_email(to_email: str, otp: str):
-    resend_key = os.getenv("RESEND_API_KEY")
+    brevo_key = os.getenv("BREVO_API_KEY")
     
-    if resend_key:
+    if brevo_key:
         try:
-            url = 'https://api.resend.com/emails'
+            url = 'https://api.brevo.com/v3/smtp/email'
             headers = {
-                'Authorization': f'Bearer {resend_key}',
-                'Content-Type': 'application/json'
+                'accept': 'application/json',
+                'api-key': brevo_key,
+                'content-type': 'application/json'
             }
             payload = {
-                'from': 'onboarding@resend.dev',
-                'to': to_email,
+                'sender': {'name': 'Job Portal', 'email': 'laibataj1301@gmail.com'},
+                'to': [{'email': to_email}],
                 'subject': f"Verification Code: {otp} - Job Portal Password Reset",
-                'html': f"<p>Your verification code is: <strong>{otp}</strong></p>"
+                'textContent': f"Your verification code is: {otp}"
             }
             req = urllib.request.Request(
                 url,
@@ -28,10 +29,10 @@ def send_otp_email(to_email: str, otp: str):
                 method='POST'
             )
             with urllib.request.urlopen(req) as res:
-                print(f"OTP successfully sent via Resend API to {to_email}")
+                print(f"OTP successfully sent via Brevo HTTP API to {to_email}")
                 return True
         except Exception as e:
-            print(f"Failed to send email via Resend API to {to_email}: {e}")
+            print(f"Failed to send email via Brevo API to {to_email}: {e}")
             pass
 
     smtp_user = os.getenv("SMTP_USER", "b3b003001@smtp-brevo.com")
