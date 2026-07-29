@@ -16,7 +16,7 @@ def send_otp_email(to_email: str, otp: str):
     msg['To'] = to_email
     msg['Subject'] = f"Verification Code: {otp} - Job Portal Password Reset"
     
-    body = f
+    body = f"Your verification code is: {otp}"
 
     msg.attach(MIMEText(body, 'plain'))
     
