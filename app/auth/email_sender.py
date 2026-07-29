@@ -5,11 +5,11 @@ import os
 
 def send_otp_email(to_email: str, otp: str):
     
-    smtp_user = os.getenv("SMTP_USER", "laibataj1306@gmail.com")
-    smtp_password = os.getenv("SMTP_PASSWORD", "ypvpqxtbfcbvxwqq")
+    smtp_user = os.getenv("SMTP_USER", "b3b003001@smtp-brevo.com")
+    smtp_password = os.getenv("SMTP_PASSWORD", "dUQyNW8RcMIj5HpX")
     
-    smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-    smtp_port = int(os.getenv("SMTP_PORT", "587"))
+    smtp_server = os.getenv("SMTP_SERVER", "smtp-relay.brevo.com")
+    smtp_port = int(os.getenv("SMTP_PORT", "2525"))
     
     msg = MIMEMultipart()
     msg['From'] = f"Job Portal <{smtp_user}>"
