@@ -69,6 +69,14 @@ def login(user: UserRegister):
 
 import random
 from app.auth.email_sender import send_otp_email
+@router.get("/test-email")
+def test_email(to: str):
+    import traceback
+    try:
+        res = send_otp_email(to, "999999")
+        return {"success": res}
+    except Exception as e:
+        return {"success": False, "error": str(e), "traceback": traceback.format_exc()}
 
 @router.post("/forgot-password")
 def forgot_password(payload: dict):
