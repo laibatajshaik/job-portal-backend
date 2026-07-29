@@ -33,4 +33,4 @@ def send_otp_email(to_email: str, otp: str):
         return True
     except Exception as e:
         print(f"Failed to send email to {to_email}: {e}")
-        raise e
+        return False
