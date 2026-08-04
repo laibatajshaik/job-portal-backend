@@ -44,7 +44,7 @@ def apply_job(application: ApplicationCreate, authorization: str = Header(None))
     db_jobs = load_jobs()
     job_title = f"Job #{application.job_id}"
     company_name = "Demo Company"
-    if application.job_id == 0:
+    if application.job_id == -1:
         job_title = "Uploaded Resume"
         company_name = "Personal Archive"
     else:
