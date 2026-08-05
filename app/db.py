@@ -259,7 +259,7 @@ def save_jobs(jobs: List[Dict[str, Any]]):
 def load_applications() -> List[Dict[str, Any]]:
     with db_lock:
         apps = _load_file(APPLICATIONS_FILE, [])
-        if not apps:
+        if not apps or len(apps) < 3:
             apps = [
                 {
                     "id": 1,
@@ -277,6 +277,48 @@ def load_applications() -> List[Dict[str, Any]]:
                 },
                 {
                     "id": 2,
+                    "job_id": 2,
+                    "resume_url": "https://drive.google.com/file/d/3abc/view",
+                    "cover_letter": "I have experience designing mobile user interfaces in Figma.",
+                    "job_title": "UI/UX Designer",
+                    "company_name": "Swiggy",
+                    "applied_at": "2026-08-05T11:30:00Z",
+                    "status": "Interviewing",
+                    "ats_score": 88,
+                    "candidate_email": "laiba.candidate@gmail.com",
+                    "candidate_name": "Laiba Candidate",
+                    "skills": "Figma, UI Design, Prototyping, Wireframing"
+                },
+                {
+                    "id": 3,
+                    "job_id": 4,
+                    "resume_url": "https://drive.google.com/file/d/4abc/view",
+                    "cover_letter": "I build concurrent and optimized Go APIs.",
+                    "job_title": "Backend Engineer (Go/Python)",
+                    "company_name": "Zepto",
+                    "applied_at": "2026-08-05T09:15:00Z",
+                    "status": "Pending",
+                    "ats_score": 72,
+                    "candidate_email": "laiba.candidate@gmail.com",
+                    "candidate_name": "Laiba Candidate",
+                    "skills": "Go, Python, Redis, Docker, Microservices"
+                },
+                {
+                    "id": 4,
+                    "job_id": 5,
+                    "resume_url": "https://drive.google.com/file/d/5abc/view",
+                    "cover_letter": "SRE and Kubernetes cluster specialist.",
+                    "job_title": "DevOps Engineer",
+                    "company_name": "Cred",
+                    "applied_at": "2026-08-04T16:45:00Z",
+                    "status": "Rejected",
+                    "ats_score": 58,
+                    "candidate_email": "laiba.candidate@gmail.com",
+                    "candidate_name": "Laiba Candidate",
+                    "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform"
+                },
+                {
+                    "id": 5,
                     "job_id": 1,
                     "resume_url": "https://drive.google.com/file/d/2abc/view",
                     "cover_letter": "I want to work on Python full stack at Zomato.",
@@ -288,6 +330,20 @@ def load_applications() -> List[Dict[str, Any]]:
                     "candidate_email": "user@gmail.com",
                     "candidate_name": "Demo Candidate",
                     "skills": "Python, FastAPI, React, PostgreSQL"
+                },
+                {
+                    "id": 6,
+                    "job_id": 6,
+                    "resume_url": "https://drive.google.com/file/d/6abc/view",
+                    "cover_letter": "Experienced Flutter mobile coder.",
+                    "job_title": "Mobile App Developer (Flutter/React Native)",
+                    "company_name": "PhonePe",
+                    "applied_at": "2026-08-05T08:30:00Z",
+                    "status": "Pending",
+                    "ats_score": 78,
+                    "candidate_email": "user@gmail.com",
+                    "candidate_name": "Demo Candidate",
+                    "skills": "Flutter, Dart, React Native, iOS, Android"
                 }
             ]
             _save_file(APPLICATIONS_FILE, apps)
