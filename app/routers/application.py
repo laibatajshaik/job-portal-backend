@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Header, HTTPException
 from pydantic import BaseModel
-from datetime import datetime
+from datetime import datetime, timezone
 from jose import jwt
 import random
 from app.auth.jwt_handler import SECRET_KEY, ALGORITHM
@@ -65,7 +65,7 @@ def apply_job(application: ApplicationCreate, authorization: str = Header(None))
         "cover_letter": application.cover_letter,
         "job_title": job_title,
         "company_name": company_name,
-        "applied_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "applied_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "status": status,
         "ats_score": ats_score,
         "candidate_email": email,
