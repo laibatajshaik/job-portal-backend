@@ -35,6 +35,7 @@ def create_job(job: JobCreate):
         "salary": job.salary,
         "job_type": job.job_type,
         "skills": job.skills,
+        "company_name": job.company_name or "Demo Company",
         "expiry_date": job.expiry_date
     }
     db_jobs.append(new_job)
@@ -85,7 +86,7 @@ def get_job(job_id: int):
             "location": found_job.get("location"),
             "salary": salary_str,
             "job_type": found_job.get("job_type", "Full Time"),
-            "company_name": "Shnoor Technologies",
+            "company_name": found_job.get("company_name", "Shnoor Technologies"),
             "expiry_date": found_job.get("expiry_date")
         }
     }
