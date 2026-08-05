@@ -49,7 +49,8 @@ def create_job(job: JobCreate):
         "location": job.location,
         "salary": job.salary,
         "job_type": job.job_type,
-        "skills": job.skills
+        "skills": job.skills,
+        "expiry_date": job.expiry_date
     }
     db_jobs.append(new_job)
     save_jobs(db_jobs)
@@ -103,6 +104,23 @@ def shortlist_candidate(candidate_id: int):
             
     if updated:
         save_applications(db_apps)
+        try:
+            from app.auth.email_sender import send_notification_email
+            target_app = None
+            for a in db_apps:
+                if a.get("id") == candidate_id:
+                    target_app = a
+                    break
+            if target_app and target_app.get("candidate_email"):
+                email = target_app.get("candidate_email")
+                name = target_app.get("candidate_name", "Candidate")
+                title = target_app.get("job_title", "Position")
+                comp = target_app.get("company_name", "Shnoor Technologies")
+                subject = f"Congratulations! You've been shortlisted for {title}"
+                body = f"Hi {name},\n\nWe have exciting news! Your application for the {title} position at {comp} has been shortlisted.\n\nWe will be in touch shortly to discuss the next steps in our hiring process.\n\nBest regards,\nRecruitment Team"
+                send_notification_email(email, subject, body)
+        except Exception as ex:
+            print(f"Failed to trigger shortlist email: {ex}")
         return {
             "message": f"Candidate {candidate_id} Shortlisted Successfully"
         }
@@ -123,6 +141,23 @@ def reject_candidate(candidate_id: int):
             
     if updated:
         save_applications(db_apps)
+        try:
+            from app.auth.email_sender import send_notification_email
+            target_app = None
+            for a in db_apps:
+                if a.get("id") == candidate_id:
+                    target_app = a
+                    break
+            if target_app and target_app.get("candidate_email"):
+                email = target_app.get("candidate_email")
+                name = target_app.get("candidate_name", "Candidate")
+                title = target_app.get("job_title", "Position")
+                comp = target_app.get("company_name", "Shnoor Technologies")
+                subject = f"Application Update - {title} at {comp}"
+                body = f"Hi {name},\n\nThank you for your interest in the {title} position at {comp}.\n\nAfter careful consideration, we regret to inform you that we will not be moving forward with your application at this time. We appreciate the time and effort you put into applying, and we wish you the best in your future endeavors.\n\nBest regards,\nRecruitment Team"
+                send_notification_email(email, subject, body)
+        except Exception as ex:
+            print(f"Failed to trigger rejection email: {ex}")
         return {
             "message": f"Candidate {candidate_id} Rejected Successfully"
         }

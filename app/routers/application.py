@@ -75,6 +75,14 @@ def apply_job(application: ApplicationCreate, authorization: str = Header(None))
     db_apps.append(new_application)
     save_applications(db_apps)
 
+    try:
+        from app.auth.email_sender import send_notification_email
+        subject = f"Application Submitted - {job_title} at {company_name}"
+        body = f"Hi {candidate_name},\n\nThank you for applying to the {job_title} position at {company_name}! We have successfully received your application.\n\nOur team will review your application and keep you updated on the next steps.\n\nBest regards,\nRecruitment Team"
+        send_notification_email(email, subject, body)
+    except Exception as ex:
+        print(f"Failed to send submission email to {email}: {ex}")
+
     return {
         "message": "Application submitted successfully",
         "application": new_application
@@ -118,6 +126,36 @@ def update_application_status(app_id: int, update_data: ApplicationUpdateStatus)
             
     if updated:
         save_applications(db_apps)
+        try:
+            from app.auth.email_sender import send_notification_email
+            target_app = None
+            for a in db_apps:
+                if a.get("id") == app_id:
+                    target_app = a
+                    break
+            if target_app and target_app.get("candidate_email"):
+                email = target_app.get("candidate_email")
+                name = target_app.get("candidate_name", "Candidate")
+                title = target_app.get("job_title", "Position")
+                comp = target_app.get("company_name", "Shnoor Technologies")
+                status = update_data.status
+                
+                subject = ""
+                body = ""
+                if status in ["Shortlisted", "Selected"]:
+                     subject = f"Congratulations! You've been shortlisted for {title}"
+                     body = f"Hi {name},\n\nWe have exciting news! Your application for the {title} position at {comp} has been shortlisted.\n\nWe will be in touch shortly to discuss the next steps in our hiring process.\n\nBest regards,\nRecruitment Team"
+                elif status == "Rejected":
+                     subject = f"Application Update - {title} at {comp}"
+                     body = f"Hi {name},\n\nThank you for your interest in the {title} position at {comp}.\n\nAfter careful consideration, we regret to inform you that we will not be moving forward with your application at this time. We appreciate the time and effort you put into applying, and we wish you the best in your future endeavors.\n\nBest regards,\nRecruitment Team"
+                elif status == "Interviewing":
+                     subject = f"Interview Scheduled - {title} at {comp}"
+                     body = f"Hi {name},\n\nGood news! An interview has been scheduled for your application for the {title} position at {comp}.\n\nPlease keep an eye on your inbox for calendar invites and details regarding the meeting link or venue.\n\nBest regards,\nRecruitment Team"
+                 
+                if subject and body:
+                     send_notification_email(email, subject, body)
+        except Exception as ex:
+            print(f"Failed to send status update email: {ex}")
         return {"message": "Application status updated successfully"}
         
     raise HTTPException(status_code=404, detail="Application not found")

@@ -8,3 +8,4 @@ class JobCreate(BaseModel):
     salary: Union[int, str] = 0
     job_type: str
     skills: Optional[str] = ""
+    expiry_date: Optional[str] = None
