@@ -69,7 +69,8 @@ def apply_job(application: ApplicationCreate, authorization: str = Header(None))
         "status": status,
         "ats_score": ats_score,
         "candidate_email": email,
-        "candidate_name": candidate_name
+        "candidate_name": candidate_name,
+        "skills": job.get("skills", "") if (application.job_id != -1 and 'job' in locals() and job is not None) else ""
     }
 
     db_apps.append(new_application)
