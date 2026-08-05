@@ -83,7 +83,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Shnoor Technologies",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 1,
@@ -138,7 +138,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Shnoor Technologies",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 6,
@@ -193,7 +193,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Shnoor Technologies",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 11,
@@ -248,7 +248,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "Shnoor Technologies",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 16,
@@ -303,7 +303,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "Shnoor Technologies",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 21,
@@ -358,7 +358,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Shnoor Technologies",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 26,
@@ -413,7 +413,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Shnoor Technologies",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 31,
@@ -468,7 +468,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Razorpay",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 36,
@@ -523,7 +523,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Razorpay",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 41,
@@ -578,7 +578,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "Razorpay",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 46,
@@ -633,7 +633,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "Razorpay",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 51,
@@ -688,7 +688,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Razorpay",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 56,
@@ -743,7 +743,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Razorpay",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 61,
@@ -798,7 +798,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "Zomato",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 66,
@@ -853,7 +853,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Zomato",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 71,
@@ -908,7 +908,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Zomato",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 76,
@@ -963,7 +963,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Zomato",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 81,
@@ -1018,7 +1018,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "Zomato",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 86,
@@ -1073,7 +1073,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "Swiggy",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 91,
@@ -1128,7 +1128,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Swiggy",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 96,
@@ -1183,7 +1183,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Swiggy",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 101,
@@ -1238,7 +1238,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Swiggy",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 106,
@@ -1293,7 +1293,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "Swiggy",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 111,
@@ -1348,7 +1348,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "Google",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 116,
@@ -1403,7 +1403,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Google",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 121,
@@ -1458,7 +1458,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Google",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 126,
@@ -1513,7 +1513,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Google",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 131,
@@ -1568,7 +1568,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "Google",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 136,
@@ -1623,7 +1623,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "Meta",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 141,
@@ -1678,7 +1678,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Meta",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 146,
@@ -1733,7 +1733,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Meta",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 151,
@@ -1788,7 +1788,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Meta",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 156,
@@ -1843,7 +1843,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Microsoft",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 161,
@@ -1898,7 +1898,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Microsoft",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 166,
@@ -1953,7 +1953,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "Microsoft",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 171,
@@ -2008,7 +2008,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "Microsoft",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 176,
@@ -2063,7 +2063,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "Amazon",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 181,
@@ -2118,7 +2118,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "Amazon",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 186,
@@ -2173,7 +2173,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Amazon",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 191,
@@ -2228,7 +2228,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Amazon",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 196,
@@ -2283,7 +2283,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Paytm",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 201,
@@ -2338,7 +2338,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Paytm",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 206,
@@ -2393,7 +2393,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Paytm",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 211,
@@ -2448,7 +2448,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "Zepto",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 216,
@@ -2503,7 +2503,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Zepto",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 221,
@@ -2558,7 +2558,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Zepto",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 226,
@@ -2613,7 +2613,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "Cred",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 231,
@@ -2668,7 +2668,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "Cred",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 236,
@@ -2723,7 +2723,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Cred",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 241,
@@ -2778,7 +2778,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "PhonePe",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 246,
@@ -2833,7 +2833,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "PhonePe",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 251,
@@ -2888,7 +2888,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "PhonePe",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 256,
@@ -2943,7 +2943,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Flipkart",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 261,
@@ -2998,7 +2998,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Flipkart",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 266,
@@ -3053,7 +3053,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "Flipkart",
-                    "expiry_date": "2026-08-20"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 271,
@@ -3108,7 +3108,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Infosys",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 276,
@@ -3163,7 +3163,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Infosys",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 281,
@@ -3218,7 +3218,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Reliance Jio",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 286,
@@ -3273,7 +3273,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Reliance Jio",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 291,
@@ -3328,7 +3328,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Wipro",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 296,
@@ -3383,7 +3383,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "Wipro",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 301,
@@ -3438,7 +3438,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
                     "company_name": "TCS",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 306,
@@ -3493,7 +3493,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "TCS",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 311,
@@ -3548,7 +3548,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, Redux, Jest, CSS3",
                     "company_name": "HCL Tech",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 316,
@@ -3603,7 +3603,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "HCL Tech",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 321,
@@ -3658,7 +3658,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
                     "company_name": "Tata Motors",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 326,
@@ -3713,7 +3713,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Tata Motors",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 331,
@@ -3768,7 +3768,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
                     "company_name": "Ola Cabs",
-                    "expiry_date": "2026-08-10"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 336,
@@ -3823,7 +3823,7 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "job_type": "Full Time",
                     "skills": "Swift, SwiftUI, Combine, Cocoapods",
                     "company_name": "Ola Cabs",
-                    "expiry_date": "2026-08-15"
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 341,
