@@ -83,7 +83,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 1200000,
                     "job_type": "Full Time",
                     "skills": "React, JavaScript, TailwindCSS, HTML/CSS",
-                    "company_name": "Razorpay"
+                    "company_name": "Razorpay",
+                    "expiry_date": "2026-08-15"
                 },
                 {
                     "id": 1,
@@ -93,7 +94,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 1850000,
                     "job_type": "Full Time",
                     "skills": "Python, FastAPI, React, PostgreSQL",
-                    "company_name": "Zomato"
+                    "company_name": "Zomato",
+                    "expiry_date": "2026-08-01"
                 },
                 {
                     "id": 2,
@@ -103,7 +105,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 1000000,
                     "job_type": "Contract",
                     "skills": "Figma, UI Design, Prototyping, Wireframing",
-                    "company_name": "Swiggy"
+                    "company_name": "Swiggy",
+                    "expiry_date": "2026-08-20"
                 },
                 {
                     "id": 3,
@@ -113,7 +116,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 850000,
                     "job_type": "Full Time",
                     "skills": "SQL, Python, Excel, Tableau, PowerBI",
-                    "company_name": "Paytm"
+                    "company_name": "Paytm",
+                    "expiry_date": "2026-07-28"
                 },
                 {
                     "id": 4,
@@ -123,7 +127,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 2200000,
                     "job_type": "Full Time",
                     "skills": "Go, Python, Redis, Docker, Microservices",
-                    "company_name": "Zepto"
+                    "company_name": "Zepto",
+                    "expiry_date": "2026-08-12"
                 },
                 {
                     "id": 5,
@@ -133,7 +138,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 1600000,
                     "job_type": "Full Time",
                     "skills": "AWS, Kubernetes, Docker, CI/CD, Terraform",
-                    "company_name": "Cred"
+                    "company_name": "Cred",
+                    "expiry_date": "2026-08-02"
                 },
                 {
                     "id": 6,
@@ -143,7 +149,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 1500000,
                     "job_type": "Full Time",
                     "skills": "Flutter, Dart, React Native, iOS, Android",
-                    "company_name": "PhonePe"
+                    "company_name": "PhonePe",
+                    "expiry_date": "2026-08-25"
                 },
                 {
                     "id": 7,
@@ -153,7 +160,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 1400000,
                     "job_type": "Full Time",
                     "skills": "Python, PyTorch, TensorFlow, Scikit-Learn",
-                    "company_name": "Tata Consultancy Services (TCS)"
+                    "company_name": "Tata Consultancy Services (TCS)",
+                    "expiry_date": "2026-08-30"
                 },
                 {
                     "id": 8,
@@ -163,7 +171,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 2000000,
                     "job_type": "Full Time",
                     "skills": "Azure, GCP, Cloud Security, Enterprise Architecture",
-                    "company_name": "Wipro"
+                    "company_name": "Wipro",
+                    "expiry_date": "2026-07-20"
                 },
                 {
                     "id": 9,
@@ -173,7 +182,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 1100000,
                     "job_type": "Full Time",
                     "skills": "Penetration Testing, Kali Linux, SIEM, Firewalls",
-                    "company_name": "HCL Tech"
+                    "company_name": "HCL Tech",
+                    "expiry_date": "2026-08-18"
                 },
                 {
                     "id": 10,
@@ -183,7 +193,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 2500000,
                     "job_type": "Full Time",
                     "skills": "Product Roadmap, Agile/Scrum, User Analytics, Jira",
-                    "company_name": "Flipkart"
+                    "company_name": "Flipkart",
+                    "expiry_date": "2026-08-04"
                 },
                 {
                     "id": 11,
@@ -193,7 +204,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 480000,
                     "job_type": "Internship",
                     "skills": "Java, Python, Git, Basic Data Structures",
-                    "company_name": "Infosys"
+                    "company_name": "Infosys",
+                    "expiry_date": "2026-08-09"
                 },
                 {
                     "id": 12,
@@ -203,7 +215,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 950000,
                     "job_type": "Full Time",
                     "skills": "Linux, Server Admin, Active Directory, Networking",
-                    "company_name": "Reliance Jio"
+                    "company_name": "Reliance Jio",
+                    "expiry_date": "2026-08-05"
                 },
                 {
                     "id": 13,
@@ -213,7 +226,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 1300000,
                     "job_type": "Full Time",
                     "skills": "C/C++, Microcontrollers, RTOS, CAN bus",
-                    "company_name": "Tata Motors"
+                    "company_name": "Tata Motors",
+                    "expiry_date": "2026-07-31"
                 },
                 {
                     "id": 14,
@@ -223,7 +237,8 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "salary": 1050000,
                     "job_type": "Full Time",
                     "skills": "Selenium, Java, Playwright, E2E Testing",
-                    "company_name": "Ola Cabs"
+                    "company_name": "Ola Cabs",
+                    "expiry_date": "2026-08-22"
                 }
             ]
             _save_file(JOBS_FILE, jobs)
