@@ -238,6 +238,105 @@ def load_jobs() -> List[Dict[str, Any]]:
                     "skills": "Selenium, Java, Playwright, E2E Testing",
                     "company_name": "Ola Cabs",
                     "expiry_date": "2026-08-22"
+                },
+                {
+                    "id": 15,
+                    "title": "UI Engineer",
+                    "description": "About the Role:\nAs a UI Engineer at Razorpay, you will bridge the gap between design and technology. You will write high-performance HTML/CSS layouts, micro-interactions, and visual transitions inside our merchant checkout templates.\n\nKey Responsibilities:\n- Collaborate with product designers to build visual design systems.\n- Write clean, modular CSS/Tailwind layouts that perform at scale.\n- Build animations and smooth screen flows.",
+                    "location": "Bengaluru, KA",
+                    "salary": 550000,
+                    "job_type": "Full Time",
+                    "skills": "React, CSS, HTML5, TailwindCSS",
+                    "company_name": "Razorpay",
+                    "expiry_date": "2026-08-28"
+                },
+                {
+                    "id": 16,
+                    "title": "Backend Python Engineer",
+                    "description": "About the Role:\nAs a Backend Python Developer at Zomato, you will develop robust business APIs. You will deploy code on cloud clusters, optimize PostgreSQL tables, and handle Redis caches.\n\nKey Responsibilities:\n- Maintain Django backend routing services and user access tables.\n- Write efficient raw SQL scripts for complex operations.\n- Set up Redis queues for food delivery order flows.",
+                    "location": "Gurugram, HR",
+                    "salary": 720000,
+                    "job_type": "Full Time",
+                    "skills": "Python, Django, PostgreSQL, Redis",
+                    "company_name": "Zomato",
+                    "expiry_date": "2026-08-19"
+                },
+                {
+                    "id": 17,
+                    "title": "Product Designer",
+                    "description": "About the Role:\nAs a Product Designer at Swiggy, you will own the user experience for our delivery apps. You will build wireframes, design screen flows, and test navigation patterns.\n\nKey Responsibilities:\n- Establish wireframes and draft user flow diagrams.\n- Maintain and build component design systems in Figma.\n- Validate layouts with engineering teams.",
+                    "location": "Bengaluru, KA",
+                    "salary": 680000,
+                    "job_type": "Full Time",
+                    "skills": "Figma, UX Design, Prototyping, Wireframing",
+                    "company_name": "Swiggy",
+                    "expiry_date": "2026-08-25"
+                },
+                {
+                    "id": 18,
+                    "title": "SRE Engineer",
+                    "description": "About the Role:\nAs an SRE at Zepto, you will ensure high availability for 10-minute delivery apps. You will write Ansible playbooks, manage Kubernetes instances, and configure AWS groups.\n\nKey Responsibilities:\n- Set up automated scaling groups on cloud networks.\n- Monitor traffic loads using Prometheus and Grafana.\n- Solve database latency bottlenecks.",
+                    "location": "Mumbai, MH",
+                    "salary": 850000,
+                    "job_type": "Full Time",
+                    "skills": "AWS, Kubernetes, Ansible, Grafana",
+                    "company_name": "Zepto",
+                    "expiry_date": "2026-08-16"
+                },
+                {
+                    "id": 19,
+                    "title": "Software Engineer (L4)",
+                    "description": "About the Role:\nAs a Software Engineer at Google, you will work on core search backend models. You will write clean C++/Python services, maintain API layers, and scale database pipelines.\n\nKey Responsibilities:\n- Design scalable backend architectures for global scale requests.\n- Conduct deep-dive performance analysis on distributed platforms.\n- Coordinate projects across multi-functional engineering teams.",
+                    "location": "Bengaluru, KA",
+                    "salary": 1400000,
+                    "job_type": "Full Time",
+                    "skills": "C++, Python, Algorithms, Distributed Systems",
+                    "company_name": "Google",
+                    "expiry_date": "2026-08-27"
+                },
+                {
+                    "id": 20,
+                    "title": "Site Reliability Specialist",
+                    "description": "About the Role:\nAs an SRS at Google, you will own deployment runtimes and cluster scaling scripts.\n\nKey Responsibilities:\n- Write Python/Go automation tools for cluster management.\n- Manage Google Cloud Platform networks and safety groups.\n- Audit service level targets.",
+                    "location": "Hyderabad, TS",
+                    "salary": 1500000,
+                    "job_type": "Full Time",
+                    "skills": "Google Cloud, Python, Kubernetes, Automation",
+                    "company_name": "Google",
+                    "expiry_date": "2026-08-24"
+                },
+                {
+                    "id": 21,
+                    "title": "Production Engineer",
+                    "description": "About the Role:\nAs a Production Engineer at Meta, you will maintain reliability for millions of concurrent server sessions.\n\nKey Responsibilities:\n- Optimize container orchestrations using Docker and Kubernetes.\n- Develop infrastructure scripts in Go and Python.\n- Direct system failover drills.",
+                    "location": "Bengaluru, KA",
+                    "salary": 1300000,
+                    "job_type": "Full Time",
+                    "skills": "Go, Python, Docker, Kubernetes, Linux",
+                    "company_name": "Meta",
+                    "expiry_date": "2026-08-29"
+                },
+                {
+                    "id": 22,
+                    "title": "Azure Cloud Consultant",
+                    "description": "About the Role:\nAs a Cloud Consultant at Microsoft, you will guide enterprise migration architectures on Azure.\n\nKey Responsibilities:\n- Architect highly available cloud solutions spanning Azure cloud services.\n- Write Infrastructure as Code templates using Bicep/Terraform.\n- Conduct safety reviews.",
+                    "location": "Hyderabad, TS",
+                    "salary": 1150000,
+                    "job_type": "Full Time",
+                    "skills": "Azure, Cloud Architecture, Terraform, Consulting",
+                    "company_name": "Microsoft",
+                    "expiry_date": "2026-08-22"
+                },
+                {
+                    "id": 23,
+                    "title": "Solutions Architect (AWS)",
+                    "description": "About the Role:\nAs a Solutions Architect at AWS, you will advise clients on scalable serverless designs and storage options.\n\nKey Responsibilities:\n- Advise development teams on sizing containers and Lambda endpoints.\n- Construct secure multi-tenant network VPC designs.\n- Formulate cloud budget plans.",
+                    "location": "Bengaluru, KA",
+                    "salary": 1250000,
+                    "job_type": "Full Time",
+                    "skills": "AWS, Serverless, Cloud Architecture, Cost Optimization",
+                    "company_name": "Amazon",
+                    "expiry_date": "2026-08-26"
                 }
             ]
             _save_file(JOBS_FILE, jobs)
