@@ -258,7 +258,40 @@ def save_jobs(jobs: List[Dict[str, Any]]):
 
 def load_applications() -> List[Dict[str, Any]]:
     with db_lock:
-        return _load_file(APPLICATIONS_FILE, [])
+        apps = _load_file(APPLICATIONS_FILE, [])
+        if not apps:
+            apps = [
+                {
+                    "id": 1,
+                    "job_id": 0,
+                    "resume_url": "https://drive.google.com/file/d/1abc/view",
+                    "cover_letter": "I am a skilled React.js developer eager to join Razorpay.",
+                    "job_title": "Frontend Developer",
+                    "company_name": "Razorpay",
+                    "applied_at": "2026-08-05T14:10:00Z",
+                    "status": "Selected",
+                    "ats_score": 98,
+                    "candidate_email": "laiba.candidate@gmail.com",
+                    "candidate_name": "Laiba Candidate",
+                    "skills": "React, JavaScript, TailwindCSS, HTML/CSS"
+                },
+                {
+                    "id": 2,
+                    "job_id": 1,
+                    "resume_url": "https://drive.google.com/file/d/2abc/view",
+                    "cover_letter": "I want to work on Python full stack at Zomato.",
+                    "job_title": "Full Stack Python Developer",
+                    "company_name": "Zomato",
+                    "applied_at": "2026-08-05T12:00:00Z",
+                    "status": "Interviewing",
+                    "ats_score": 85,
+                    "candidate_email": "user@gmail.com",
+                    "candidate_name": "Demo Candidate",
+                    "skills": "Python, FastAPI, React, PostgreSQL"
+                }
+            ]
+            _save_file(APPLICATIONS_FILE, apps)
+        return apps
 
 def save_applications(applications: List[Dict[str, Any]]):
     with db_lock:
