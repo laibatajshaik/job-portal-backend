@@ -1,29 +1,60 @@
 from fastapi import APIRouter, HTTPException
 from app.schemas.user import UserRegister
 from app.auth.jwt_handler import create_access_token
+from app.db import load_users, save_users
+from app.auth.email_sender import send_otp_email
+
+import random
+import os
+import smtplib
+import urllib.request
+import urllib.error
+import json
+import base64
+
+from email.mime.text import MIMEText
+
 
 router = APIRouter(
     prefix="/auth",
     tags=["Authentication"]
 )
 
-from app.db import load_users, save_users
+
+# =========================================================
+# ACTIVE OTP STORAGE
+# =========================================================
 
 active_otps = {}
 
+
+# =========================================================
+# NORMAL REGISTER
+# =========================================================
+
 @router.post("/register")
 def register(user: UserRegister):
-    db_users = load_users()
-    for u in db_users:
-        if u["email"].lower() == user.email.lower():
-            raise HTTPException(status_code=400, detail="Email already registered")
 
-    db_users.append({
+    db_users = load_users()
+
+    for u in db_users:
+
+        if u["email"].lower() == user.email.lower():
+
+            raise HTTPException(
+                status_code=400,
+                detail="Email already registered"
+            )
+
+    new_user = {
         "name": user.name,
         "email": user.email,
         "password": user.password,
         "role": user.role
-    })
+    }
+
+    db_users.append(new_user)
+
     save_users(db_users)
 
     token = create_access_token({
@@ -36,17 +67,30 @@ def register(user: UserRegister):
         "token_type": "bearer"
     }
 
+
+# =========================================================
+# NORMAL LOGIN
+# =========================================================
+
 @router.post("/login")
 def login(user: UserRegister):
+
     db_users = load_users()
+
     found_user = None
 
     for u in db_users:
-        if u["email"].lower() == user.email.lower() and u["password"] == user.password:
+
+        if (
+            u["email"].lower() == user.email.lower()
+            and u["password"] == user.password
+        ):
+
             found_user = u
             break
 
     if not found_user:
+
         raise HTTPException(
             status_code=401,
             detail="Invalid email or password"
@@ -67,231 +111,661 @@ def login(user: UserRegister):
         }
     }
 
-import random
-from app.auth.email_sender import send_otp_email
+
+# =========================================================
+# TEST EMAIL STATUS
+# =========================================================
+
 @router.get("/test-email-status")
 def test_email_status(to: str):
-    import os
-    import json
-    import urllib.request
-    import traceback
-    
+
     res = {}
-    
+
+    # -----------------------------------------------------
+    # RESEND
+    # -----------------------------------------------------
+
     resend_key = os.getenv("RESEND_API_KEY")
+
     res["resend_key_configured"] = bool(resend_key)
+
     if resend_key:
+
         try:
-            url = 'https://api.resend.com/emails'
+
+            url = "https://api.resend.com/emails"
+
             headers = {
-                'Authorization': f'Bearer {resend_key}',
-                'Content-Type': 'application/json'
+                "Authorization": f"Bearer {resend_key}",
+                "Content-Type": "application/json"
             }
+
             payload = {
-                'from': 'onboarding@resend.dev',
-                'to': to,
-                'subject': 'Test Resend',
-                'html': '<p>Test</p>'
+                "from": "onboarding@resend.dev",
+                "to": to,
+                "subject": "Test Resend",
+                "html": "<p>Test</p>"
             }
-            req = urllib.request.Request(url, data=json.dumps(payload).encode('utf-8'), headers=headers, method='POST')
+
+            req = urllib.request.Request(
+                url,
+                data=json.dumps(payload).encode("utf-8"),
+                headers=headers,
+                method="POST"
+            )
+
             with urllib.request.urlopen(req) as r:
+
                 res["resend_success"] = True
-                res["resend_response"] = r.read().decode('utf-8')
+
+                res["resend_response"] = (
+                    r.read().decode("utf-8")
+                )
+
         except Exception as e:
-            err_body = e.read().decode('utf-8') if hasattr(e, "read") else ""
+
+            err_body = (
+                e.read().decode("utf-8")
+                if hasattr(e, "read")
+                else ""
+            )
+
             res["resend_success"] = False
             res["resend_error"] = str(e)
             res["resend_error_body"] = err_body
-            
+
+    # -----------------------------------------------------
+    # BREVO
+    # -----------------------------------------------------
+
     brevo_key = os.getenv("BREVO_API_KEY")
+
     res["brevo_key_configured"] = bool(brevo_key)
+
     if brevo_key:
+
         try:
-            url = 'https://api.brevo.com/v3/smtp/email'
+
+            url = "https://api.brevo.com/v3/smtp/email"
+
             headers = {
-                'accept': 'application/json',
-                'api-key': brevo_key,
-                'content-type': 'application/json'
+                "accept": "application/json",
+                "api-key": brevo_key,
+                "content-type": "application/json"
             }
+
             payload = {
-                'sender': {'name': 'Job Portal', 'email': 'laibataj1301@gmail.com'},
-                'to': [{'email': to}],
-                'subject': 'Test Brevo API',
-                'textContent': 'Test'
+                "sender": {
+                    "name": "Job Portal",
+                    "email": "laibataj1301@gmail.com"
+                },
+                "to": [
+                    {
+                        "email": to
+                    }
+                ],
+                "subject": "Test Brevo API",
+                "textContent": "Test"
             }
-            req = urllib.request.Request(url, data=json.dumps(payload).encode('utf-8'), headers=headers, method='POST')
+
+            req = urllib.request.Request(
+                url,
+                data=json.dumps(payload).encode("utf-8"),
+                headers=headers,
+                method="POST"
+            )
+
             with urllib.request.urlopen(req) as r:
+
                 res["brevo_success"] = True
-                res["brevo_response"] = r.read().decode('utf-8')
+
+                res["brevo_response"] = (
+                    r.read().decode("utf-8")
+                )
+
         except Exception as e:
-            err_body = e.read().decode('utf-8') if hasattr(e, "read") else ""
+
+            err_body = (
+                e.read().decode("utf-8")
+                if hasattr(e, "read")
+                else ""
+            )
+
             res["brevo_success"] = False
             res["brevo_error"] = str(e)
             res["brevo_error_body"] = err_body
-            
-    import smtplib
-    from email.mime.text import MIMEText
+
+    # -----------------------------------------------------
+    # SMTP
+    # -----------------------------------------------------
+
     smtp_user = os.getenv("SMTP_USER")
     smtp_password = os.getenv("SMTP_PASSWORD")
     smtp_server = os.getenv("SMTP_SERVER")
-    smtp_port = int(os.getenv("SMTP_PORT", "2525"))
+
+    smtp_port = int(
+        os.getenv("SMTP_PORT", "2525")
+    )
+
     if smtp_user and smtp_password and smtp_server:
+
         try:
+
             msg = MIMEText("Test SMTP")
-            msg['Subject'] = 'Test SMTP'
-            msg['From'] = smtp_user
-            msg['To'] = to
-            server = smtplib.SMTP(smtp_server, smtp_port, timeout=5)
+
+            msg["Subject"] = "Test SMTP"
+            msg["From"] = smtp_user
+            msg["To"] = to
+
+            server = smtplib.SMTP(
+                smtp_server,
+                smtp_port,
+                timeout=5
+            )
+
             server.starttls()
-            server.login(smtp_user, smtp_password)
-            server.sendmail(smtp_user, [to], msg.as_string())
+
+            server.login(
+                smtp_user,
+                smtp_password
+            )
+
+            server.sendmail(
+                smtp_user,
+                [to],
+                msg.as_string()
+            )
+
             server.quit()
+
             res["smtp_success"] = True
+
         except Exception as e:
+
             res["smtp_success"] = False
             res["smtp_error"] = str(e)
+
     else:
+
         res["smtp_success"] = False
-        res["smtp_error"] = "SMTP credentials not fully configured in environment"
-        
+
+        res["smtp_error"] = (
+            "SMTP credentials not fully configured "
+            "in environment"
+        )
+
     return res
+
+
+# =========================================================
+# FORGOT PASSWORD
+# =========================================================
 
 @router.post("/forgot-password")
 def forgot_password(payload: dict):
+
     email = payload.get("email")
+
     if not email:
-        raise HTTPException(status_code=400, detail="Email is required")
-    
-    otp = str(random.randint(100000, 999999))
-    active_otps[email.lower()] = otp
-    print(f"\n>>> [OTP GENERATED] Email: {email} | Code: {otp}\n")
-    
-    email_sent = send_otp_email(email, otp)
-    
+
+        raise HTTPException(
+            status_code=400,
+            detail="Email is required"
+        )
+
+    email = email.strip().lower()
+
+    otp = str(
+        random.randint(100000, 999999)
+    )
+
+    active_otps[email] = otp
+
+    print(
+        f"\n>>> [OTP GENERATED] "
+        f"Email: {email} | Code: {otp}\n"
+    )
+
+    email_sent = send_otp_email(
+        email,
+        otp
+    )
+
     return {
-        "message": "Verification code sent to registered email address" if email_sent else "Generated verification code internally",
+        "message": (
+            "Verification code sent to registered email address"
+            if email_sent
+            else "Generated verification code internally"
+        ),
         "email": email
     }
 
+
+# =========================================================
+# RESET PASSWORD
+# =========================================================
+
 @router.post("/reset-password")
 def reset_password(payload: dict):
+
     email = payload.get("email")
     code = payload.get("code")
     new_password = payload.get("new_password")
-    
-    if not email or not code or not new_password:
-        raise HTTPException(status_code=400, detail="Email, verification code, and new password are required")
 
-    expected_code = active_otps.get(email.lower())
-    if not expected_code or expected_code != str(code).strip():
-        raise HTTPException(status_code=400, detail="Invalid or expired verification code")
+    if not email or not code or not new_password:
+
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Email, verification code, and "
+                "new password are required"
+            )
+        )
+
+    email = email.strip().lower()
+
+    expected_code = active_otps.get(email)
+
+    if (
+        not expected_code
+        or expected_code != str(code).strip()
+    ):
+
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid or expired verification code"
+        )
 
     db_users = load_users()
+
     user_updated = False
+
     for u in db_users:
-        if u["email"].lower() == email.lower():
+
+        if u["email"].lower() == email:
+
             u["password"] = new_password
+
             user_updated = True
+
             break
 
     if user_updated:
+
         save_users(db_users)
 
-    active_otps.pop(email.lower(), None)
+    active_otps.pop(
+        email,
+        None
+    )
 
     return {
         "message": "Password reset successfully",
         "email": email
     }
 
-import urllib.request
-import urllib.error
-import json
-import base64
+
+# =========================================================
+# GOOGLE LOGIN
+# =========================================================
 
 @router.post("/google-login")
 def google_login(payload: dict):
+
     token = payload.get("token")
+
     if not token:
-        raise HTTPException(status_code=400, detail="Google authentication token is required")
+
+        raise HTTPException(
+            status_code=400,
+            detail="Google authentication token is required"
+        )
 
     data = None
-    
+
+    # =====================================================
+    # VERIFY GOOGLE TOKEN
+    # =====================================================
+
     try:
-        url = f"https://oauth2.googleapis.com/tokeninfo?id_token={token}"
+
+        url = (
+            "https://oauth2.googleapis.com/"
+            f"tokeninfo?id_token={token}"
+        )
+
         req = urllib.request.Request(
             url,
             headers={
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                "User-Agent": (
+                    "Mozilla/5.0 "
+                    "(Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 "
+                    "(KHTML, like Gecko) "
+                    "Chrome/120.0.0.0 Safari/537.36"
+                )
             }
         )
+
         with urllib.request.urlopen(req) as response:
-            data = json.loads(response.read().decode('utf-8'))
+
+            data = json.loads(
+                response.read().decode("utf-8")
+            )
+
     except Exception as online_err:
-        print("Google online verification failed, trying local JWT decoding:", online_err)
-        
+
+        print(
+            "Google online verification failed:",
+            online_err
+        )
+
+        # -------------------------------------------------
+        # LOCAL JWT PAYLOAD FALLBACK
+        # -------------------------------------------------
+
         try:
+
             parts = token.split(".")
+
             if len(parts) == 3:
+
                 payload_b64 = parts[1]
-                padded = payload_b64 + "=" * ((4 - len(payload_b64) % 4) % 4)
-                decoded_bytes = base64.urlsafe_b64decode(padded)
-                data = json.loads(decoded_bytes.decode('utf-8'))
+
+                padded = (
+                    payload_b64
+                    + "=" * (
+                        (4 - len(payload_b64) % 4) % 4
+                    )
+                )
+
+                decoded_bytes = (
+                    base64.urlsafe_b64decode(
+                        padded
+                    )
+                )
+
+                data = json.loads(
+                    decoded_bytes.decode("utf-8")
+                )
+
         except Exception as local_err:
-            print("Local JWT decoding failed:", local_err)
-            raise HTTPException(status_code=400, detail="Google token verification failed (both online and local fallback)")
 
-    print("Decoded Google Token Data:", data)
+            print(
+                "Local JWT decoding failed:",
+                local_err
+            )
+
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    "Google token verification failed"
+                )
+            )
+
+    # =====================================================
+    # TOKEN DATA CHECK
+    # =====================================================
+
+    print(
+        "Decoded Google Token Data:",
+        data
+    )
+
     if not data:
-        raise HTTPException(status_code=400, detail="Unable to extract Google profile details from token")
 
-    allowed_client_id = "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl.apps.googleusercontent.com"
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Unable to extract Google profile details "
+                "from token"
+            )
+        )
+
+    # =====================================================
+    # GOOGLE CLIENT ID
+    # =====================================================
+
+    allowed_client_id = (
+        "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl"
+        ".apps.googleusercontent.com"
+    )
+
     aud = data.get("aud")
     azp = data.get("azp")
+
     aud_valid = False
 
     if isinstance(aud, list):
-        aud_valid = allowed_client_id in aud
-    elif isinstance(aud, str):
-        aud_valid = allowed_client_id.strip() in aud.strip()
 
-    if not aud_valid and azp and isinstance(azp, str):
-        aud_valid = allowed_client_id.strip() in azp.strip()
+        aud_valid = (
+            allowed_client_id in aud
+        )
+
+    elif isinstance(aud, str):
+
+        aud_valid = (
+            aud.strip()
+            == allowed_client_id.strip()
+        )
+
+    if not aud_valid and isinstance(azp, str):
+
+        aud_valid = (
+            azp.strip()
+            == allowed_client_id.strip()
+        )
 
     if not aud_valid:
-        print(f">>> [CLIENT ID WARNING] Allowed: {allowed_client_id} | Token aud: {aud} | Token azp: {azp}. Proceeding anyway to support custom Google apps.")
+
+        print(
+            ">>> [CLIENT ID ERROR] "
+            f"Expected: {allowed_client_id} | "
+            f"Token aud: {aud} | "
+            f"Token azp: {azp}"
+        )
+
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Google Client ID"
+        )
+
+    # =====================================================
+    # GOOGLE USER DETAILS
+    # =====================================================
 
     email = data.get("email")
-    name = data.get("name", "Google User")
+
+    name = data.get(
+        "name",
+        "Google User"
+    )
+
+    email_verified = data.get(
+        "email_verified"
+    )
 
     if not email:
-        raise HTTPException(status_code=400, detail="Email field is missing in Google token payload")
+
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Email field is missing "
+                "in Google token payload"
+            )
+        )
+
+    # -----------------------------------------------------
+    # Require verified Google email
+    # -----------------------------------------------------
+
+    if str(email_verified).lower() != "true":
+
+        raise HTTPException(
+            status_code=400,
+            detail="Google email is not verified"
+        )
+
+    email = email.strip().lower()
+
+    # =====================================================
+    # SELECTED ROLE FROM FRONTEND
+    # =====================================================
+
+    role = payload.get(
+        "role",
+        "user"
+    )
+
+    role = str(role).strip().lower()
+
+    if role not in ["user", "manager"]:
+
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid role selected"
+        )
+
+    print(
+        f">>> GOOGLE LOGIN | "
+        f"Email: {email} | "
+        f"Selected Role: {role}"
+    )
+
+    # =====================================================
+    # LOAD USERS
+    # =====================================================
 
     db_users = load_users()
+
     found_user = None
+
+    # =====================================================
+    # CHECK EXISTING EMAIL
+    # =====================================================
+
     for u in db_users:
-        if u["email"].lower() == email.lower():
+
+        existing_email = (
+            str(u.get("email", ""))
+            .strip()
+            .lower()
+        )
+
+        if existing_email != email:
+            continue
+
+        existing_role = str(
+            u.get("role", "user")
+        ).strip().lower()
+
+        print(
+            f">>> EXISTING ACCOUNT | "
+            f"Email: {email} | "
+            f"Existing Role: {existing_role} | "
+            f"Selected Role: {role}"
+        )
+
+        # -------------------------------------------------
+        # EXISTING MANAGER
+        # -------------------------------------------------
+
+        if existing_role == "manager":
+
+            if role == "manager":
+
+                # Existing manager can login
+                found_user = u
+
+                break
+
+            else:
+
+                # Manager email cannot login as candidate
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        "This email is already registered "
+                        "as a recruiter"
+                    )
+                )
+
+
+        elif existing_role == "user":
+
+            if role == "user":
+
+                # Existing candidate can login
+                found_user = u
+
+                break
+
+            else:
+
+                # User email cannot become recruiter
+                raise HTTPException(
+                    status_code=400,
+                    detail="Email already exists"
+                )
+        elif existing_role == "admin":
+
             found_user = u
+
             break
 
+        # -------------------------------------------------
+        # UNKNOWN ROLE
+        # -------------------------------------------------
+
+        else:
+
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    "Existing account has an invalid role"
+                )
+            )
+
     if not found_user:
-        
-        role = payload.get("role", "user")
-        if "admin" in email.lower():
-            role = "admin"
+
+        print(
+            f">>> NEW GOOGLE ACCOUNT | "
+            f"Email: {email} | "
+            f"Creating Role: {role}"
+        )
+
         new_user = {
             "name": name,
             "email": email,
             "password": "google-oauth-managed-password",
             "role": role
         }
-        db_users.append(new_user)
-        save_users(db_users)
+
+        db_users.append(
+            new_user
+        )
+
+        save_users(
+            db_users
+        )
+
         found_user = new_user
+
+        print(
+            f">>> NEW ACCOUNT CREATED | "
+            f"Email: {email} | "
+            f"Role: {role}"
+        )
 
     access_token = create_access_token({
         "sub": found_user["email"]
     })
+
+    print(
+        f">>> GOOGLE LOGIN SUCCESS | "
+        f"Email: {found_user['email']} | "
+        f"Role: {found_user['role']}"
+    )
 
     return {
         "message": "Google Authentication Successful",
