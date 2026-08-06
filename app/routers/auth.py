@@ -20,17 +20,7 @@ router = APIRouter(
     tags=["Authentication"]
 )
 
-
-# =========================================================
-# ACTIVE OTP STORAGE
-# =========================================================
-
 active_otps = {}
-
-
-# =========================================================
-# NORMAL REGISTER
-# =========================================================
 
 @router.post("/register")
 def register(user: UserRegister):
@@ -66,11 +56,6 @@ def register(user: UserRegister):
         "access_token": token,
         "token_type": "bearer"
     }
-
-
-# =========================================================
-# NORMAL LOGIN
-# =========================================================
 
 @router.post("/login")
 def login(user: UserRegister):
@@ -111,20 +96,11 @@ def login(user: UserRegister):
         }
     }
 
-
-# =========================================================
-# TEST EMAIL STATUS
-# =========================================================
-
 @router.get("/test-email-status")
 def test_email_status(to: str):
 
     res = {}
-
-    # -----------------------------------------------------
-    # RESEND
-    # -----------------------------------------------------
-
+    
     resend_key = os.getenv("RESEND_API_KEY")
 
     res["resend_key_configured"] = bool(resend_key)
@@ -173,10 +149,6 @@ def test_email_status(to: str):
             res["resend_success"] = False
             res["resend_error"] = str(e)
             res["resend_error_body"] = err_body
-
-    # -----------------------------------------------------
-    # BREVO
-    # -----------------------------------------------------
 
     brevo_key = os.getenv("BREVO_API_KEY")
 
@@ -235,10 +207,6 @@ def test_email_status(to: str):
             res["brevo_error"] = str(e)
             res["brevo_error_body"] = err_body
 
-    # -----------------------------------------------------
-    # SMTP
-    # -----------------------------------------------------
-
     smtp_user = os.getenv("SMTP_USER")
     smtp_password = os.getenv("SMTP_PASSWORD")
     smtp_server = os.getenv("SMTP_SERVER")
@@ -296,11 +264,6 @@ def test_email_status(to: str):
 
     return res
 
-
-# =========================================================
-# FORGOT PASSWORD
-# =========================================================
-
 @router.post("/forgot-password")
 def forgot_password(payload: dict):
 
@@ -339,11 +302,6 @@ def forgot_password(payload: dict):
         ),
         "email": email
     }
-
-
-# =========================================================
-# RESET PASSWORD
-# =========================================================
 
 @router.post("/reset-password")
 def reset_password(payload: dict):
@@ -404,11 +362,6 @@ def reset_password(payload: dict):
         "email": email
     }
 
-
-# =========================================================
-# GOOGLE LOGIN
-# =========================================================
-
 @router.post("/google-login")
 def google_login(payload: dict):
 
@@ -422,10 +375,6 @@ def google_login(payload: dict):
         )
 
     data = None
-
-    # =====================================================
-    # VERIFY GOOGLE TOKEN
-    # =====================================================
 
     try:
 
@@ -459,10 +408,6 @@ def google_login(payload: dict):
             "Google online verification failed:",
             online_err
         )
-
-        # -------------------------------------------------
-        # LOCAL JWT PAYLOAD FALLBACK
-        # -------------------------------------------------
 
         try:
 
@@ -503,10 +448,6 @@ def google_login(payload: dict):
                 )
             )
 
-    # =====================================================
-    # TOKEN DATA CHECK
-    # =====================================================
-
     print(
         "Decoded Google Token Data:",
         data
@@ -521,10 +462,6 @@ def google_login(payload: dict):
                 "from token"
             )
         )
-
-    # =====================================================
-    # GOOGLE CLIENT ID
-    # =====================================================
 
     allowed_client_id = (
         "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl"
@@ -569,11 +506,7 @@ def google_login(payload: dict):
             status_code=401,
             detail="Invalid Google Client ID"
         )
-
-    # =====================================================
-    # GOOGLE USER DETAILS
-    # =====================================================
-
+        
     email = data.get("email")
 
     name = data.get(
@@ -595,10 +528,6 @@ def google_login(payload: dict):
             )
         )
 
-    # -----------------------------------------------------
-    # Require verified Google email
-    # -----------------------------------------------------
-
     if str(email_verified).lower() != "true":
 
         raise HTTPException(
@@ -607,10 +536,6 @@ def google_login(payload: dict):
         )
 
     email = email.strip().lower()
-
-    # =====================================================
-    # SELECTED ROLE FROM FRONTEND
-    # =====================================================
 
     role = payload.get(
         "role",
@@ -632,17 +557,9 @@ def google_login(payload: dict):
         f"Selected Role: {role}"
     )
 
-    # =====================================================
-    # LOAD USERS
-    # =====================================================
-
     db_users = load_users()
 
     found_user = None
-
-    # =====================================================
-    # CHECK EXISTING EMAIL
-    # =====================================================
 
     for u in db_users:
 
@@ -665,11 +582,7 @@ def google_login(payload: dict):
             f"Existing Role: {existing_role} | "
             f"Selected Role: {role}"
         )
-
-        # -------------------------------------------------
-        # EXISTING MANAGER
-        # -------------------------------------------------
-
+        
         if existing_role == "manager":
 
             if role == "manager":
@@ -712,11 +625,6 @@ def google_login(payload: dict):
             found_user = u
 
             break
-
-        # -------------------------------------------------
-        # UNKNOWN ROLE
-        # -------------------------------------------------
-
         else:
 
             raise HTTPException(
