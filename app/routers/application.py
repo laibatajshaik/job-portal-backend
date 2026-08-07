@@ -15,6 +15,7 @@ class ApplicationCreate(BaseModel):
     job_id: int
     resume_url: str
     cover_letter: str
+    silent: bool = False
 
 class ApplicationUpdateStatus(BaseModel):
     status: str
@@ -76,13 +77,14 @@ def apply_job(application: ApplicationCreate, authorization: str = Header(None))
     db_apps.append(new_application)
     save_applications(db_apps)
 
-    try:
-        from app.auth.email_sender import send_notification_email
-        subject = f"Application Submitted - {job_title} at {company_name}"
-        body = f"Hi {candidate_name},\n\nThank you for applying to the {job_title} position at {company_name}! We have successfully received your application.\n\nOur team will review your application and keep you updated on the next steps.\n\nBest regards,\nRecruitment Team"
-        send_notification_email(email, subject, body)
-    except Exception as ex:
-        print(f"Failed to send submission email to {email}: {ex}")
+    if not application.silent:
+        try:
+            from app.auth.email_sender import send_notification_email
+            subject = f"Application Submitted - {job_title} at {company_name}"
+            body = f"Hi {candidate_name},\n\nThank you for applying to the {job_title} position at {company_name}! We have successfully received your application.\n\nOur team will review your application and keep you updated on the next steps.\n\nBest regards,\nRecruitment Team"
+            send_notification_email(email, subject, body)
+        except Exception as ex:
+            print(f"Failed to send submission email to {email}: {ex}")
 
     return {
         "message": "Application submitted successfully",
