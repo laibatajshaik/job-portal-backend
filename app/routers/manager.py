@@ -29,28 +29,6 @@ class CompanySchema(BaseModel):
     recruitment_status: Optional[str] = "Active"
     benefits: List[str] = []
 
-
-current_company = {
-    "name": "Shnoor Technologies",
-    "website": "https://shnoor.com",
-    "description": "Leading software solutions and IT technology company.",
-    "industry": "Information Technology",
-    "company_size": "50-200 Employees",
-    "location": "Bengaluru, India",
-    "email": "company@example.com",
-    "company_type": "Private Company",
-    "founded_year": "2020",
-    "recruitment_status": "Active",
-    "benefits": [
-        "Health Insurance",
-        "Flexible Work",
-        "Learning & Development",
-        "Paid Leave",
-        "Performance Benefits"
-    ]
-}
-
-
 COMPANY_SPECIFICATIONS = {
     "Shnoor Technologies": {
         "website": "https://shnoor.com",
