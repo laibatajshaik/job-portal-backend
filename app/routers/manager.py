@@ -51,10 +51,341 @@ current_company = {
 }
 
 
+COMPANY_SPECIFICATIONS = {
+    "Shnoor Technologies": {
+        "website": "https://shnoor.com",
+        "description": "Leading software solutions and IT technology company.",
+        "industry": "Information Technology",
+        "company_size": "50-200 Employees",
+        "location": "Bengaluru, India",
+        "email": "company@example.com",
+        "company_type": "Private Company",
+        "founded_year": "2020"
+    },
+    "Razorpay": {
+        "website": "https://razorpay.com",
+        "description": "Financial technology company providing payment and business banking solutions.",
+        "industry": "FinTech",
+        "company_size": "1000-5000 Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "support@razorpay.com",
+        "company_type": "Private Company",
+        "founded_year": "2014"
+    },
+    "Zomato": {
+        "website": "https://www.zomato.com",
+        "description": "Online food delivery and restaurant discovery platform.",
+        "industry": "Food Technology",
+        "company_size": "5000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "info@zomato.com",
+        "company_type": "Public Company",
+        "founded_year": "2008"
+    },
+    "Swiggy": {
+        "website": "https://www.swiggy.com",
+        "description": "Online food ordering and delivery platform.",
+        "industry": "Food Technology",
+        "company_size": "5000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "support@swiggy.in",
+        "company_type": "Public Company",
+        "founded_year": "2014"
+    },
+    "Google": {
+        "website": "https://www.google.com",
+        "description": "Global technology company specializing in internet services and digital products.",
+        "industry": "Information Technology",
+        "company_size": "10000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "support@google.com",
+        "company_type": "Public Company",
+        "founded_year": "1998"
+    },
+    "Meta": {
+        "website": "https://www.meta.com",
+        "description": "Technology company focused on social networking and immersive digital experiences.",
+        "industry": "Information Technology",
+        "company_size": "10000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "support@meta.com",
+        "company_type": "Public Company",
+        "founded_year": "2004"
+    },
+    "Microsoft": {
+        "website": "https://www.microsoft.com",
+        "description": "Global technology company providing software, cloud and digital services.",
+        "industry": "Information Technology",
+        "company_size": "10000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "support@microsoft.com",
+        "company_type": "Public Company",
+        "founded_year": "1975"
+    },
+    "Amazon": {
+        "website": "https://www.amazon.com",
+        "description": "Global technology and e-commerce company offering online retail and cloud services.",
+        "industry": "E-Commerce and Technology",
+        "company_size": "10000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "support@amazon.com",
+        "company_type": "Public Company",
+        "founded_year": "1994"
+    },
+    "Paytm": {
+        "website": "https://paytm.com",
+        "description": "Digital payments and financial services platform.",
+        "industry": "FinTech",
+        "company_size": "5000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "care@paytm.com",
+        "company_type": "Public Company",
+        "founded_year": "2010"
+    },
+    "Zepto": {
+        "website": "https://www.zeptonow.com",
+        "description": "Quick commerce platform providing rapid grocery delivery.",
+        "industry": "E-Commerce",
+        "company_size": "1000-5000 Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "support@zeptonow.com",
+        "company_type": "Private Company",
+        "founded_year": "2021"
+    },
+    "Cred": {
+        "website": "https://cred.club",
+        "description": "FinTech platform offering credit card and financial management services.",
+        "industry": "FinTech",
+        "company_size": "1000-5000 Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "support@cred.club",
+        "company_type": "Private Company",
+        "founded_year": "2018"
+    },
+    "PhonePe": {
+        "website": "https://www.phonepe.com",
+        "description": "Digital payments and financial services technology company.",
+        "industry": "FinTech",
+        "company_size": "5000+ Employees",
+        "location": "Pune, Maharashtra",
+        "email": "support@phonepe.com",
+        "company_type": "Private Company",
+        "founded_year": "2015"
+    },
+    "Flipkart": {
+        "website": "https://www.flipkart.com",
+        "description": "Major Indian e-commerce platform offering products and digital services.",
+        "industry": "E-Commerce",
+        "company_size": "10000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "cs@flipkart.com",
+        "company_type": "Private Company",
+        "founded_year": "2007"
+    },
+    "Infosys": {
+        "website": "https://www.infosys.com",
+        "description": "Global information technology and consulting services company.",
+        "industry": "Information Technology",
+        "company_size": "10000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "askus@infosys.com",
+        "company_type": "Public Company",
+        "founded_year": "1981"
+    },
+    "Reliance Jio": {
+        "website": "https://www.jio.com",
+        "description": "Digital services and telecommunications company providing connectivity and technology services.",
+        "industry": "Telecommunications",
+        "company_size": "10000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "care@jio.com",
+        "company_type": "Private Company",
+        "founded_year": "2016"
+    },
+    "Wipro": {
+        "website": "https://www.wipro.com",
+        "description": "Global information technology, consulting and business process services company.",
+        "industry": "Information Technology",
+        "company_size": "10000+ Employees",
+        "location": "Pune, Maharashtra",
+        "email": "info@wipro.com",
+        "company_type": "Public Company",
+        "founded_year": "1945"
+    },
+    "TCS": {
+        "website": "https://www.tcs.com",
+        "description": "Global IT services, consulting and business solutions company.",
+        "industry": "Information Technology",
+        "company_size": "10000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "corporate.communications@tcs.com",
+        "company_type": "Public Company",
+        "founded_year": "1968"
+    },
+    "HCL Tech": {
+        "website": "https://www.hcltech.com",
+        "description": "Global technology company providing IT services and digital transformation solutions.",
+        "industry": "Information Technology",
+        "company_size": "10000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "info@hcltech.com",
+        "company_type": "Public Company",
+        "founded_year": "1976"
+    },
+    "Tata Motors": {
+        "website": "https://www.tatamotors.com",
+        "description": "Automotive company manufacturing passenger and commercial vehicles.",
+        "industry": "Automotive",
+        "company_size": "10000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "customercare@tatamotors.com",
+        "company_type": "Public Company",
+        "founded_year": "1945"
+    },
+    "Ola Cabs": {
+        "website": "https://www.olacabs.com",
+        "description": "Mobility company providing ride-hailing and transportation services.",
+        "industry": "Transportation Technology",
+        "company_size": "5000+ Employees",
+        "location": "Bengaluru, Karnataka",
+        "email": "support@olacabs.com",
+        "company_type": "Private Company",
+        "founded_year": "2010"
+    }
+}
+
 @router.get("/company")
 def get_company():
     return {
         "company": current_company
+    }
+
+
+@router.get("/companies")
+def get_companies():
+    db_jobs = load_jobs()
+    companies = {}
+
+    for job in db_jobs:
+        company_name = job.get("company_name")
+
+        if not company_name:
+            continue
+
+        if company_name not in companies:
+            details = COMPANY_SPECIFICATIONS.get(
+                company_name,
+                {}
+            )
+
+            companies[company_name] = {
+                "name": company_name,
+                "website": details.get("website", ""),
+                "description": details.get("description", ""),
+                "industry": details.get(
+                    "industry",
+                    "Information Technology"
+                ),
+                "company_size": details.get("company_size", ""),
+                "location": details.get(
+                    "location",
+                    job.get("location", "")
+                ),
+                "email": details.get("email", ""),
+                "company_type": details.get("company_type", ""),
+                "founded_year": details.get("founded_year", ""),
+                "recruitment_status": details.get(
+                    "recruitment_status",
+                    "Active"
+                ),
+                "benefits": details.get("benefits", []),
+                "total_jobs": 0,
+                "jobs": []
+            }
+
+        companies[company_name]["total_jobs"] += 1
+
+        companies[company_name]["jobs"].append({
+            "id": job.get("id"),
+            "title": job.get("title", ""),
+            "location": job.get("location", ""),
+            "salary": job.get("salary", ""),
+            "job_type": job.get("job_type", ""),
+            "skills": job.get("skills", ""),
+            "expiry_date": job.get("expiry_date", "")
+        })
+
+    return {
+        "companies": list(companies.values())
+    }
+
+
+@router.get("/companies/{company_name}")
+def get_company_by_name(company_name: str):
+    db_jobs = load_jobs()
+
+    company_jobs = [
+        job
+        for job in db_jobs
+        if job.get("company_name", "").lower()
+        == company_name.lower()
+    ]
+
+    if not company_jobs:
+        raise HTTPException(
+            status_code=404,
+            detail="Company not found"
+        )
+
+    actual_company_name = company_jobs[0].get(
+        "company_name",
+        company_name
+    )
+
+    details = COMPANY_SPECIFICATIONS.get(
+        actual_company_name,
+        {}
+    )
+
+    company_data = {
+        "name": actual_company_name,
+        "website": details.get("website", ""),
+        "description": details.get("description", ""),
+        "industry": details.get(
+            "industry",
+            "Information Technology"
+        ),
+        "company_size": details.get("company_size", ""),
+        "location": details.get(
+            "location",
+            company_jobs[0].get("location", "")
+        ),
+        "email": details.get("email", ""),
+        "company_type": details.get("company_type", ""),
+        "founded_year": details.get("founded_year", ""),
+        "recruitment_status": details.get(
+            "recruitment_status",
+            "Active"
+        ),
+        "benefits": details.get("benefits", []),
+        "total_jobs": len(company_jobs),
+        "jobs": []
+    }
+
+    for job in company_jobs:
+        company_data["jobs"].append({
+            "id": job.get("id"),
+            "title": job.get("title", ""),
+            "description": job.get("description", ""),
+            "location": job.get("location", ""),
+            "salary": job.get("salary", ""),
+            "job_type": job.get("job_type", ""),
+            "skills": job.get("skills", ""),
+            "expiry_date": job.get("expiry_date", "")
+        })
+
+    return {
+        "company": company_data
     }
 
 
@@ -75,6 +406,8 @@ def register_company(company: CompanySchema):
         "recruitment_status": company.recruitment_status or "Active",
         "benefits": company.benefits or []
     }
+
+    COMPANY_SPECIFICATIONS[company.name] = current_company.copy()
 
     return {
         "message": "Company Registered Successfully",
@@ -99,6 +432,8 @@ def update_company(company: CompanySchema):
         "recruitment_status": company.recruitment_status or "Active",
         "benefits": company.benefits or []
     }
+
+    COMPANY_SPECIFICATIONS[company.name] = current_company.copy()
 
     return {
         "message": "Company Specifications Updated Successfully",
@@ -232,7 +567,6 @@ def shortlist_candidate(candidate_id: int):
     target_app = None
 
     for idx, app in enumerate(db_apps):
-
         if (
             app.get("id") == candidate_id
             or (
@@ -261,16 +595,11 @@ def shortlist_candidate(candidate_id: int):
         from app.auth.email_sender import send_notification_email
 
         if target_app.get("candidate_email"):
-
-            email = target_app.get(
-                "candidate_email"
-            )
-
+            email = target_app.get("candidate_email")
             name = target_app.get(
                 "candidate_name",
                 "Candidate"
             )
-
             title = target_app.get(
                 "job_title",
                 "Position"
@@ -329,7 +658,6 @@ def reject_candidate(candidate_id: int):
     target_app = None
 
     for idx, app in enumerate(db_apps):
-
         if (
             app.get("id") == candidate_id
             or (
@@ -358,16 +686,11 @@ def reject_candidate(candidate_id: int):
         from app.auth.email_sender import send_notification_email
 
         if target_app.get("candidate_email"):
-
-            email = target_app.get(
-                "candidate_email"
-            )
-
+            email = target_app.get("candidate_email")
             name = target_app.get(
                 "candidate_name",
                 "Candidate"
             )
-
             title = target_app.get(
                 "job_title",
                 "Position"
