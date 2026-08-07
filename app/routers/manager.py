@@ -29,6 +29,7 @@ class CompanySchema(BaseModel):
     recruitment_status: Optional[str] = "Active"
     benefits: List[str] = []
 
+
 COMPANY_SPECIFICATIONS = {
     "Shnoor Technologies": {
         "website": "https://shnoor.com",
